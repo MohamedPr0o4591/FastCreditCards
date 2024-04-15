@@ -1,0 +1,48 @@
+.referrals-page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.referrals-page .inner {
+  padding: 2rem;
+  background: #2f4560;
+  border-radius: 0.1rem;
+  color: #efefef;
+}
+
+.referrals-page span {
+  letter-spacing: 0.1rem;
+}
+
+.referrals-page p {
+  font-size: 1.5rem;
+}
+
+.referrals-page .child-2 {
+  box-shadow: 0 0.1rem 0.4rem rgba(0, 0, 0, 0.2);
+  background: #3d5777;
+  width: 60%;
+  margin: auto;
+  border-radius: 1rem;
+  padding: 1rem;
+}
+
+.referrals-page table {
+  table-layout: fixed;
+}
+
+.referrals-page table th {
+  margin-top: 1rem;
+  background: #142840;
+}
+
+.referrals-page table th,
+.referrals-page table td {
+  border: 1px groove #0d99;
+  padding: 0.8rem;
+}
+
+.referrals-page table tbody tr:nth-child(even) {
+  background: #3d5777;
+}

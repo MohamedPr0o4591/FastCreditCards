@@ -1,0 +1,12 @@
+select {
+    background: cadetblue;
+    border: none;
+    outline: none;
+    border-radius: .3rem;
+    padding: 0.4rem;
+}
+
+.date_selector {
+    display: flex;
+    gap: 0.3rem;
+}

@@ -1,0 +1,20 @@
+.history-page .history-box {
+  background: #2f4560;
+  border-radius: 0.4rem;
+  padding: 10px 20px;
+  box-shadow: 0 0.1rem 0.6rem rgba(0, 0, 0, 0.2);
+}
+
+.history-page table {
+  table-layout: fixed;
+  text-align: center;
+}
+.history-page table th,
+.history-page table td {
+  padding: 10px;
+  transition: all 0.228s ease;
+}
+
+.history-page table tbody tr:hover {
+  background: #052957;
+}

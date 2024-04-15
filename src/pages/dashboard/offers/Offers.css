@@ -1,0 +1,113 @@
+.offers_page .help-mark {
+  position: relative;
+  color: #eeffee70;
+}
+
+.offers_page .help-mark > label {
+  display: none;
+  transition: all 0.228s ease;
+  position: absolute;
+  min-width: 300px;
+  background: #efef;
+  color: #0e0e0e;
+  padding: 10px;
+  border-radius: 0.6rem;
+  top: 25px;
+  max-width: 400px;
+  box-shadow: 0 0.1rem 0.6rem rgba(0, 0, 0, 0.2);
+}
+
+.offers_page .help-mark > .help-mark-icon:hover ~ label {
+  display: block;
+  z-index: 1;
+}
+
+.offers_page .list_offers {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.offers_page .list_offers li.active {
+  pointer-events: initial;
+}
+
+.offers_page .list_offers li.active i::before {
+  content: "Available now, you can complete many offers";
+}
+
+.offers_page .list_offers li.disabled {
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.offers_page .list_offers li.disabled i {
+  opacity: 1;
+}
+
+.offers_page .list_offers li.disabled i::before {
+  content: "Locked ";
+  color: red;
+}
+
+.offers_page .list_offers li.disabled i::after {
+  content: " This offerwall will unlock after you complete more offers from other offerwalls";
+}
+
+.offers_page .list_offers li {
+  height: 35px;
+  border-radius: 0.2rem;
+  overflow: hidden;
+  width: 100%;
+  cursor: pointer;
+}
+
+.offers_page .list_offers li i {
+  opacity: 0;
+  transition: all 0.228s ease;
+}
+
+.offers_page .list_offers li:hover p {
+  display: none;
+}
+
+.offers_page .list_offers li:hover i {
+  opacity: 1;
+}
+
+@keyframes hue-rotate {
+  50% {
+    filter: hue-rotate(360deg);
+  }
+
+  100% {
+    filter: "none";
+  }
+}
+
+.offers_page .list_offers li:nth-child(even),
+.offers_page table tbody tr:nth-child(even) {
+  background: #3d5777;
+}
+
+.offers_page .list_offers img {
+  width: 35px;
+}
+
+.offers_page table {
+  padding: 20px;
+  margin-top: 20px;
+  width: 100%;
+  table-layout: fixed;
+}
+
+.offers_page table td,
+.offers_page table th {
+  padding: 15px;
+  border: 1px solid #9c9c9c;
+}
+
+.offers_page table tbody tr,
+.offers_page .list_offers li {
+  background: #275b6e;
+}

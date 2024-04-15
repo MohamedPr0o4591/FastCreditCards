@@ -1,0 +1,66 @@
+.app-bar {
+  padding: 1.2rem 0;
+  display: flex;
+  align-items: center;
+  position: fixed;
+  width: 100%;
+  z-index: 3;
+}
+
+.app-bar h3 {
+  margin: 0;
+  user-select: none;
+  background: linear-gradient(45deg, rgb(118 247 134), #0dcaf0, #5ae3ff);
+  -webkit-background-clip: text;
+  color: transparent;
+  font-weight: 600;
+  font-family: "Protest Revolution", sans-serif;
+}
+
+.app-bar .register_btn {
+  color: #efef;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 20px;
+  border-radius: 0.6rem;
+  border-bottom: 1px solid #efef;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.app-bar .register_btn span {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes trans_register {
+  from {
+    width: 1%;
+  }
+
+  to {
+    width: 100%;
+  }
+}
+
+.app-bar .register_btn:hover .register_btn_hvr {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 1%;
+  background: #515376;
+  transition: all 0.3s;
+  animation: trans_register 0.3s ease-in-out both;
+}
+
+.app-bar a {
+  color: #efef;
+  transition: all 0.228s;
+}
+
+.app-bar a:hover {
+  color: aquamarine;
+}

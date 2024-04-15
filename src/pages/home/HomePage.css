@@ -1,0 +1,39 @@
+.home-page-img {
+  background: url(../../../public/l0kp8cnb.bmp);
+  background-position: center center;
+  background-size: cover;
+  height: 100vh;
+  opacity: 0.4;
+  filter: hue-rotate(239deg);
+}
+
+.home-page-img .start_earnnings {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+@keyframes rotate_frame {
+  25% {
+    transform: translate(50px, 50px);
+  }
+
+  50% {
+    transform: translate(50px, -50px);
+  }
+
+  75% {
+    transform: translate(-50px, -50px);
+  }
+
+  100% {
+    transform: translate(50px, -50px);
+  }
+}
+
+.home-page-img .start_earnnings #online_business {
+  width: 100%;
+  /* animation: rotate_frame 3s ease infinite alternate-reverse; */
+  filter: hue-rotate(165deg);
+}

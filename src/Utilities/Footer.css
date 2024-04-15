@@ -1,0 +1,20 @@
+.footer {
+  width: 100%;
+  padding: 1.5rem;
+  background: rgb(24, 40, 61);
+  box-shadow: 0 -0.1rem -0.4rem rgba(0, 0, 0, 0.2);
+}
+
+.footer h3 {
+  margin: 0;
+  user-select: none;
+  background: linear-gradient(45deg, rgb(118 247 134), #0dcaf0, #5ae3ff);
+  -webkit-background-clip: text;
+  color: transparent;
+  font-weight: 600;
+  font-family: "Protest Revolution", sans-serif;
+}
+
+.footer a {
+  color: #9c9c9c;
+}

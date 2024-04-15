@@ -1,0 +1,47 @@
+.dashboard_page {
+  position: relative;
+  min-height: 100vh;
+  color: #efefef;
+}
+
+.dashboard_page .main-points {
+  width: 480px;
+  position: relative;
+  padding: 1rem 0;
+  min-height: 100px;
+  max-height: 180px;
+  transition: all 0.288s;
+}
+
+.dashboard_page .main-points:hover {
+  transform: scale(1.02, 1.02);
+}
+
+.dashboard_page .main-points .inner {
+  position: absolute;
+  top: -30px;
+  left: -30px;
+  border-radius: 50%;
+  background: #011622;
+  padding: 10px;
+}
+
+.dashboard_page .dashboard_menu {
+  padding-top: 90px;
+  width: 25vw;
+  height: 100vh;
+  /* background: white; */
+}
+
+.dashboard_page .dashboard_menu li {
+  border-bottom: 2px solid rgba(3, 241, 178, 0.2);
+  transition: all 0.228s;
+}
+
+.dashboard_page .dashboard_menu a {
+  text-decoration: none;
+  width: 100%;
+  display: block;
+  color: #efef;
+  padding: 10px;
+}

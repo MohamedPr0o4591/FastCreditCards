@@ -1,0 +1,19 @@
+.advertise {
+  width: 214px;
+  height: 80px;
+  background: #18283d;
+  padding: 20px;
+  margin: 7px;
+  border-radius: 0.6rem;
+  flex-grow: 1;
+}
+
+.advertise img {
+  pointer-events: none;
+  transition: all 0.228s ease;
+  filter: grayscale(1);
+}
+
+.advertise:hover img {
+  filter: grayscale(0);
+}
