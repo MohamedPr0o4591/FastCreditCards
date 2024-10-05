@@ -20,14 +20,11 @@ function NavBar() {
   useEffect(() => {
     const handleScroll = (_) => {
       if (window.scrollY > 50) {
-        // @ts-ignore
-        myDifRef.current.style.background = "rgb(24 40 61)";
-        // @ts-ignore
-        myDifRef.current.style.boxShadow = `0 0rem .3rem rgb(127 255 212)`;
+        myDifRef.current.style.background =
+          "linear-gradient(45deg, black 5% , rgb(24, 40, 61) ,rgb(24, 40, 61) ,rgb(24, 40, 61))";
+        myDifRef.current.style.boxShadow = `0 0rem .3rem rgba(127, 255, 212, 40%)`;
       } else {
-        // @ts-ignore
         myDifRef.current.style.background = "none";
-        // @ts-ignore
         myDifRef.current.style.boxShadow = `none`;
       }
     };
@@ -64,6 +61,7 @@ function NavBar() {
             <Box flex={1} />
 
             <Stack direction={"row"} gap={2}>
+              {/*               
               <Box
                 className={`register_btn ${
                   location.pathname.includes("/register") ? "d-none" : "d-block"
@@ -74,7 +72,6 @@ function NavBar() {
 
                 <div className="register_btn_hvr" />
               </Box>
-
               <Button
                 variant="outlined"
                 color="success"
@@ -85,6 +82,29 @@ function NavBar() {
               >
                 Login
               </Button>
+              */}
+
+              <button
+                onClick={(_) => navigate("/login")}
+                className={`login-btn ${
+                  location.pathname.includes("/login") && "d-none"
+                }`}
+              >
+                Have an account
+              </button>
+
+              <div
+                className={`container-btn 
+                   ${location.pathname.includes("/register") && "d-none"}
+                  `}
+                onClick={(_) => navigate("/register/full_name")}
+              >
+                {Array.from({ length: 6 }, (_, index) => (
+                  <i key={index} className={`hover bt-${index + 1}`} />
+                ))}
+
+                <button />
+              </div>
             </Stack>
           </Stack>
         </Container>

@@ -49,6 +49,7 @@ import {
   Person3Rounded,
 } from "@mui/icons-material";
 import { auth } from "../../config/firebase";
+import ad1 from "../../../public/img2.png";
 
 function HomePage() {
   const navi = useNavigate();
@@ -141,7 +142,7 @@ function HomePage() {
           >
             Read more about us
           </span>
-          <img src="../../../public/img2.png" />
+          <img src={ad1} />
         </Col>
 
         <Col sm={12} lg={6}>

@@ -6,6 +6,7 @@ import { auth, db } from "./../../config/firebase";
 import { ToastContainer, toast, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router-dom";
+import BTC from "../../../public/bitcoin.png";
 
 function LoginPage() {
   const initialState = {
@@ -238,7 +239,7 @@ function LoginPage() {
             Earn rewards by: playing games .. taking surveys .. surfing websites
           </h2>
 
-          <img src="../../../public/bitcoin.png" alt="" className="w-100" />
+          <img src={BTC} alt="" className="w-100" />
         </Col>
       </Row>
     </div>

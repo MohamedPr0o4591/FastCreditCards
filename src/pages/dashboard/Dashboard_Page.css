@@ -30,7 +30,8 @@
   padding-top: 90px;
   width: 25vw;
   height: 100vh;
-  /* background: white; */
+  overflow: auto;
+  scrollbar-width: none;
 }
 
 .dashboard_page .dashboard_menu li {

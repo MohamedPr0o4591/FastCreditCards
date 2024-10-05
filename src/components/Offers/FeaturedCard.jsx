@@ -1,5 +1,7 @@
 import { Card, Stack } from "@mui/material";
 import React, { useEffect, useState } from "react";
+import icon from "../../../public/icon.png";
+import img from "../../../public/img2.png";
 
 function FeaturedCard() {
   const [points, setPoints] = useState(15085);
@@ -19,7 +21,7 @@ function FeaturedCard() {
     >
       <Stack gap={1}>
         <img
-          src="../public/img2.png"
+          src={img}
           alt="offer"
           style={{
             width: 110 + "px",
@@ -35,11 +37,7 @@ function FeaturedCard() {
         </span>
 
         <Stack direction={"row"} gap={1} alignItems={"center"}>
-          <img
-            src="../public/icon.png"
-            alt="icon"
-            style={{ width: 40 + "px" }}
-          />
+          <img src={icon} alt="icon" style={{ width: 40 + "px" }} />
 
           <span>
             {points > 1000 ? (points / 1000).toFixed(2) + "K" : points}

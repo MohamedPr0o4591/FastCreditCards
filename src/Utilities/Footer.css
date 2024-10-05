@@ -1,8 +1,10 @@
 .footer {
+  position: relative;
   width: 100%;
   padding: 1.5rem;
   background: rgb(24, 40, 61);
   box-shadow: 0 -0.1rem -0.4rem rgba(0, 0, 0, 0.2);
+  z-index: 1;
 }
 
 .footer h3 {
