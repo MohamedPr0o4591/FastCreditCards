@@ -10,6 +10,7 @@ import {
 import {
   Dashboard,
   Diversity1,
+  ImagesearchRoller,
   KeyboardDoubleArrowDown,
   KeyboardDoubleArrowUp,
   LocalOffer,
@@ -321,6 +322,23 @@ const Dashboard_Page = () => {
                 <p className="m-0 d-flex align-items-center gap-2">
                   {" "}
                   <Summarize /> History
+                </p>
+              </Link>
+            </li>
+
+            <li
+              style={{
+                background: `${
+                  loc.pathname === "/dashboard/themes"
+                    ? "#2f4560"
+                    : "content-box"
+                }`,
+              }}
+            >
+              <Link to="/dashboard/themes">
+                <p className="m-0 d-flex align-items-center gap-2">
+                  {" "}
+                  <ImagesearchRoller /> Themes
                 </p>
               </Link>
             </li>

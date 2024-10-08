@@ -39,7 +39,7 @@ import visa from "../../assets/visa.png";
 // @ts-ignore
 import online_business from "../../assets/online_business.png";
 // @ts-ignore
-import start_earnning from "../../assets/start earnning.png";
+import start_earnning from "../../assets/secondLogo.webp";
 import AdvertiserCard from "../../components/AdvertiserCard";
 import { useNavigate } from "react-router";
 import {
@@ -50,6 +50,12 @@ import {
 } from "@mui/icons-material";
 import { auth } from "../../config/firebase";
 import ad1 from "../../../public/img2.png";
+import currency from "../../../public/icon.png";
+import logo from "../../../public/logo.png";
+import OfferDetails from "../../components/pages/home page/OfferDetails";
+import tiktokOffer from "../../assets/offers/tiktok.png";
+import monoOffer from "../../assets/offers/mono.jpg";
+import warPathOffer from "../../assets/offers/warPath.jpg";
 
 function HomePage() {
   const navi = useNavigate();
@@ -63,7 +69,6 @@ function HomePage() {
       }
     });
 
-    // تنظيف الاشتراك عندما يتم تفريغ المكون
     return () => unsubscribe();
   }, [history]);
 
@@ -75,53 +80,85 @@ function HomePage() {
   return (
     <div className="home-page">
       <div className="home-page-img position-relative">
+        {Array.from({ length: 3 }, (_, index) => {
+          return <q key={index} />;
+        })}
+
         <div className="start_earnnings">
-          <Row className="w-100 h-100">
-            <Col sm={12} lg={6} className="overflow-hidden d-flex flex-column ">
-              <Stack
-                direction={"row"}
-                alignItems={"center"}
-                justifyContent={"center"}
-                height={100 + "%"}
-              >
-                <Box flexGrow={1} />
+          <Container className="container">
+            <Row className="h-100">
+              <div className="content">
+                <h2>Earn rewards simply</h2>
+                <span>Your interests are our interests</span>
+              </div>
+              <Col sm={12} lg={6} className=" col-start">
+                <div>
+                  <button onClick={(_) => navi("/register/full_name")}>
+                    Start earning now
+                  </button>
 
-                <Button
-                  variant="contained"
-                  color="warning"
-                  sx={{
-                    p: "20px 50px",
-                    fontSize: 1.3 + "rem",
-                    mr: 50 + "px",
-                  }}
-                  onClick={(_) => navi("/register/full_name")}
-                >
-                  Start now
-                </Button>
-              </Stack>
-            </Col>
+                  <Stack
+                    direction={"row"}
+                    alignItems={"center"}
+                    mt={2}
+                    gap={10}
+                  >
+                    <Box className="desc-box">
+                      <img
+                        src={logo}
+                        alt="Currency"
+                        style={{ borderColor: "#008ba9" }}
+                      />
 
-            <Col sm={12} lg={6} className="overflow-hidden d-flex flex-column ">
-              <img
-                src={start_earnning}
-                alt="Start_earnnings"
-                className="w-75"
-              />
-            </Col>
+                      <p>+150 offers available in Egypt</p>
+                    </Box>
 
-            {/* <Col
-              sm={12}
-              lg={6}
-              className="d-flex justify-content-center align-items-center overflow-hidden"
-            >
-              <img
-                src={online_business}
-                alt="Online Business"
-                id="online_business"
-                className="border-bottom"
-              />
-            </Col> */}
-          </Row>
+                    <Box className="desc-box">
+                      <img src={currency} alt="Currency" />
+
+                      <p>Earn up to $150 per offer</p>
+                    </Box>
+                  </Stack>
+                </div>
+
+                <Stack direction={"row"} alignItems={"center"} mt={2} gap={4}>
+                  <OfferDetails
+                    img={tiktokOffer}
+                    title="Tiktok install"
+                    price="$2.75"
+                  />
+
+                  <OfferDetails
+                    img={monoOffer}
+                    title="Monopoly Go!"
+                    price="$154"
+                  />
+
+                  <OfferDetails
+                    img={warPathOffer}
+                    title="Warpath: Ace..."
+                    price="$91"
+                  />
+                </Stack>
+              </Col>
+
+              <Col sm={12} lg={6} className="col-end">
+                <div className="img-container">
+                  {Array.from({ length: 9 }, (_, index) => {
+                    return (
+                      <i key={index} className={`hover bt-${index + 1}`} />
+                    );
+                  })}
+
+                  <img
+                    src={start_earnning}
+                    alt="Start_earnnings"
+                    className="logo-earn"
+                  />
+                </div>
+              </Col>
+            </Row>
+          </Container>
         </div>
       </div>
 

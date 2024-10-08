@@ -10,7 +10,7 @@ function HistoryPage() {
   React.useEffect(() => {
     const intervalId = setInterval(() => {
       setCurrentlyTime(new Date().toLocaleString());
-    }, 1000); // تحديث الوقت كل ثانية
+    }, 1000);
 
     return () => clearInterval(intervalId);
   }, []);
