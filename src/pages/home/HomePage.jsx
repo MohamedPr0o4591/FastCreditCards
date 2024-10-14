@@ -56,6 +56,7 @@ import OfferDetails from "../../components/pages/home page/OfferDetails";
 import tiktokOffer from "../../assets/offers/tiktok.png";
 import monoOffer from "../../assets/offers/mono.jpg";
 import warPathOffer from "../../assets/offers/warPath.jpg";
+import FlashCircle from "../../components/utilities/FlashCircle";
 
 function HomePage() {
   const navi = useNavigate();
@@ -77,18 +78,55 @@ function HomePage() {
   const [advertisement, setAdvertisement] = useState(9102810);
   const [payments, setPayments] = useState(2104501);
 
+  const [subText, setSubText] = useState("");
+  let phrases = [
+    "playing games",
+    "taking surveys",
+    "surfing websites",
+    "watching movies",
+    "reading books",
+    "watching youtube videos",
+  ];
+
+  useEffect(() => {
+    let currentPhrase = 0;
+    let isDeleting = false;
+    let charIndex = 0;
+    const typingSpeed = 300;
+    const deletingSpeed = 100;
+
+    function type() {
+      if (!isDeleting && charIndex < phrases[currentPhrase].length) {
+        setSubText(phrases[currentPhrase].substring(0, charIndex + 1));
+        charIndex++;
+      } else if (isDeleting && charIndex > 0) {
+        setSubText(phrases[currentPhrase].substring(0, charIndex - 1));
+        charIndex--;
+      } else if (charIndex === phrases[currentPhrase].length) {
+        isDeleting = true;
+      } else if (isDeleting && charIndex === 0) {
+        isDeleting = false;
+        currentPhrase = (currentPhrase + 1) % phrases.length;
+      }
+
+      setTimeout(type, isDeleting ? deletingSpeed : typingSpeed);
+    }
+
+    type();
+  }, []);
+
   return (
     <div className="home-page">
       <div className="home-page-img position-relative">
-        {Array.from({ length: 3 }, (_, index) => {
-          return <q key={index} />;
-        })}
+        <FlashCircle />
 
         <div className="start_earnnings">
           <Container className="container">
             <Row className="h-100">
               <div className="content">
-                <h2>Earn rewards simply</h2>
+                <h2 contentEditable="true">
+                  Earn rewards simply by: <span>{subText}</span>
+                </h2>
                 <span>Your interests are our interests</span>
               </div>
               <Col sm={12} lg={6} className=" col-start">
@@ -162,42 +200,32 @@ function HomePage() {
         </div>
       </div>
 
-      <Row className="w-100 p-5 border-bottom">
-        <Col
-          sm={12}
-          lg={6}
-          className="d-flex justify-content-between"
-          style={{
-            gap: 2.6 + "rem",
-          }}
-        >
-          <span
-            className=" fs-2 d-flex align-items-center"
-            style={{
-              color: "orange",
-            }}
-          >
-            Read more about us
-          </span>
-          <img src={ad1} />
-        </Col>
+      <Container className="about-us-container">
+        <Row className="p-5 border-bottom row-start">
+          <Col sm={12} lg={6} className="col-start">
+            <div className="content">
+              <span>Read more about us</span>
+            </div>
+            <img src={ad1} />
+          </Col>
 
-        <Col sm={12} lg={6}>
-          <h2
-            className="text-center"
-            style={{
-              color: "orange",
-            }}
-          >
-            Advertise At FastCreditCards
-          </h2>
+          <Col sm={12} lg={6}>
+            <h2
+              className="text-center"
+              style={{
+                color: "orange",
+              }}
+            >
+              Advertise At FastCreditCards
+            </h2>
 
-          <span className="text-light text-center fs-4">
-            Create your campaign by easy steps. Connect your project to large
-            audience of users immediately.
-          </span>
-        </Col>
-      </Row>
+            <span className="text-light text-center fs-4">
+              Create your campaign by easy steps. Connect your project to large
+              audience of users immediately.
+            </span>
+          </Col>
+        </Row>
+      </Container>
 
       <Stack gap={2} p={4}>
         <h2

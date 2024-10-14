@@ -223,25 +223,26 @@
   border-color: #02dea3;
 }
 
-@keyframes loginBanner {
-  30% {
-    transform: translateY(50px);
-  }
-
-  65% {
-    transform: translateY(-50px);
-  }
-
-  100% {
-    transform: translateY(0);
-  }
-}
-
 .auth-page .login-banner {
   display: flex;
   justify-content: center;
-  align-items: center;
-  animation: loginBanner linear 3s infinite alternate-reverse;
+}
+
+.auth-page .login-banner .text-box {
+  font-size: 2.4rem;
+  font-weight: 600;
+  letter-spacing: 0.2rem;
+  line-height: 1.5;
+  text-align: start;
+  color: #efef;
+}
+
+.auth-page .login-banner .text-box > span:nth-child(2) {
+  border-right: 3px solid #fff;
+  animation: changeColor 12s infinite alternate-reverse;
+  color: #32d112;
+  text-shadow: 0 0 10px #32d112;
+  font-weight: 400;
 }
 
 @keyframes typing {

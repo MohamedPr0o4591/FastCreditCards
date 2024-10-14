@@ -12,6 +12,10 @@
   pointer-events: none;
   transition: all 0.228s ease;
   filter: grayscale(1);
+  max-width: 214px;
+  max-height: 100%;
+  object-fit: contain;
+  transform: scale(1.2);
 }
 
 .advertise:hover img {

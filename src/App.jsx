@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Container } from "react-bootstrap";
-import { Route, Routes, useNavigate } from "react-router";
+import { Route, Routes } from "react-router";
 import NavBar from "./Utilities/NavBar";
 import HomePage from "./pages/home/HomePage";
 import RegisterPage from "./pages/auth/RegisterPage";
@@ -22,15 +21,45 @@ import Ads_Article from "./pages/dashboard/ads/Ads_Article";
 import Offers from "./pages/dashboard/offers/Offers";
 import Forget_Pass from "./pages/auth/Forget_Pass";
 import AdvertisePage from "./pages/dashboard/advertise/AdvertisePage";
-import { auth, db } from "./config/firebase";
 import ReferralsPage from "./pages/dashboard/referrals/ReferralsPage";
 import ProfilePage from "./pages/dashboard/profile/ProfilePage";
 import HistoryPage from "./pages/dashboard/history/HistoryPage";
 import LeaderboardPage from "./pages/dashboard/leaderBoard/LeaderboardPage";
 
 function App() {
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    function handleMouseMove(e) {
+      setMousePosition({
+        x: e.clientX,
+        y: e.clientY,
+      });
+    }
+
+    function disableRightClick(e) {
+      e.preventDefault();
+    }
+
+    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("contextmenu", disableRightClick);
+
+    return (_) => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("contextmenu", disableRightClick);
+    };
+  }, []);
+
   return (
     <div className="main">
+      <div
+        className="cursor"
+        style={{
+          top: `${mousePosition.y}px`,
+          left: `${mousePosition.x}px`,
+        }}
+      />
+
       <NavBar />
 
       <Routes>

@@ -1,0 +1,59 @@
+.flash-circle q {
+  border-radius: 50%;
+  position: absolute;
+}
+
+.flash-circle q:first-child {
+  width: 25vw;
+  height: 25vw;
+  background: #00e6f66e;
+  top: 60px;
+  right: 40px;
+  animation: effect-alternate 2s forwards alternate-reverse infinite;
+}
+
+.flash-circle q:nth-child(2) {
+  width: 10vw;
+  height: 10vw;
+  background-color: orange;
+  animation: secondEffect 24s forwards alternate-reverse infinite;
+  filter: blur(120px);
+}
+
+.flash-circle q:nth-child(3) {
+  width: 19vw;
+  filter: blur(90px);
+  animation: secondEffect 15s forwards alternate infinite;
+  height: 19vw;
+  background: #03397782;
+}
+
+@keyframes secondEffect {
+  0% {
+    left: -20%;
+    top: 0;
+  }
+
+  25% {
+    left: 20%;
+    top: 25%;
+  }
+  50% {
+    left: 10%;
+    top: 50%;
+  }
+
+  100% {
+    left: -20%;
+    top: 80%;
+  }
+}
+
+@keyframes effect-alternate {
+  from {
+    filter: blur(50px);
+  }
+  to {
+    filter: blur(100px);
+  }
+}

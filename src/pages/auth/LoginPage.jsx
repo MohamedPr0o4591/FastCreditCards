@@ -7,6 +7,7 @@ import { ToastContainer, toast, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router-dom";
 import BTC from "../../../public/bitcoin.png";
+import FlashCircle from "../../components/utilities/FlashCircle";
 
 function LoginPage() {
   const initialState = {
@@ -131,9 +132,52 @@ function LoginPage() {
 
   const theme = useTheme();
 
+  const [subText, setSubText] = useState("");
+  const phrases = [
+    "playing games",
+    "taking surveys",
+    "surfing websites",
+    "watching movies",
+    "reading books",
+    "watching youtube videos",
+  ];
+
+  useEffect(() => {
+    let currentPhrase = 0;
+    let isDeleting = false;
+    let charIndex = 0;
+    const typingSpeed = 300; // سرعة الكتابة
+    const deletingSpeed = 100; // سرعة الحذف
+
+    const type = () => {
+      if (!isDeleting && charIndex < phrases[currentPhrase].length) {
+        // إذا لم يتم الحذف وكُتب جزء من النص
+        setSubText(phrases[currentPhrase].substring(0, charIndex + 1));
+        charIndex++;
+      } else if (isDeleting && charIndex > 0) {
+        // إذا تم البدء في الحذف
+        setSubText(phrases[currentPhrase].substring(0, charIndex - 1));
+        charIndex--;
+      } else if (charIndex === phrases[currentPhrase].length) {
+        // ابدأ الحذف بعد كتابة العبارة
+        isDeleting = true;
+      } else if (isDeleting && charIndex === 0) {
+        // عند الانتهاء من الحذف انتقل إلى العبارة التالية
+        isDeleting = false;
+        currentPhrase = (currentPhrase + 1) % phrases.length; // العودة من جديد
+      }
+
+      setTimeout(type, isDeleting ? deletingSpeed : typingSpeed);
+    };
+
+    type(); // استدعاء دالة الكتابة
+  }, []);
+
   return (
     <div className="auth-page">
       <ToastContainer />
+      <FlashCircle />
+
       <Row className="w-100">
         <Col sm={12} lg={6}>
           <div className="auth">
@@ -233,13 +277,19 @@ function LoginPage() {
         <Col
           sm={12}
           lg={6}
-          className="login-banner position-relative d-flex flex-column overflow-hidden"
+          className="login-banner position-relative d-flex flex-column"
         >
-          <h2 className="animated-text">
+          {/* <h2 className="animated-text">
             Earn rewards by: playing games .. taking surveys .. surfing websites
-          </h2>
+          </h2> */}
 
-          <img src={BTC} alt="" className="w-100" />
+          <div className="text-box">
+            <span>Earn rewards by:</span> <span>{subText}</span>
+          </div>
+
+          <div className="img-box">
+            <img src={BTC} alt="" className="w-100" />
+          </div>
         </Col>
       </Row>
     </div>

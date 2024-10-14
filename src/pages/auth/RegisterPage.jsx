@@ -12,6 +12,7 @@ import { Col, Row } from "react-bootstrap";
 import Accordionation from "../../Utilities/Accordionation";
 import { Outlet, useNavigate, useParams } from "react-router";
 import { db } from "../../config/firebase";
+import FlashCircle from "../../components/utilities/FlashCircle";
 
 function RegisterPage() {
   const params = useParams();
@@ -33,6 +34,7 @@ function RegisterPage() {
 
   return (
     <div className="auth-page">
+      <FlashCircle />
       <Row className="w-100">
         <Col sm={12} lg={6}>
           <Outlet />

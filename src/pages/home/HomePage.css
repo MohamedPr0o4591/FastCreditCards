@@ -6,66 +6,6 @@
   align-items: center;
 }
 
-.home-page-img q {
-  border-radius: 50%;
-  position: absolute;
-}
-
-.home-page-img q:first-child {
-  width: 25vw;
-  height: 25vw;
-  background: #00e6f66e;
-  top: 60px;
-  right: 40px;
-  animation: effect-alternate 2s forwards alternate-reverse infinite;
-}
-
-.home-page-img q:nth-child(2) {
-  width: 10vw;
-  height: 10vw;
-  background-color: orange;
-  animation: secondEffect 24s forwards alternate-reverse infinite;
-  filter: blur(120px);
-}
-
-.home-page-img q:nth-child(3) {
-  width: 19vw;
-  filter: blur(90px);
-  animation: secondEffect 15s forwards alternate infinite;
-  height: 19vw;
-  background: #03397782;
-}
-
-@keyframes secondEffect {
-  0% {
-    left: -20%;
-    top: 0;
-  }
-
-  25% {
-    left: 20%;
-    top: 25%;
-  }
-  50% {
-    left: 10%;
-    top: 50%;
-  }
-
-  100% {
-    left: -20%;
-    top: 80%;
-  }
-}
-
-@keyframes effect-alternate {
-  from {
-    filter: blur(50px);
-  }
-  to {
-    filter: blur(100px);
-  }
-}
-
 .home-page-img .container {
   height: 100%;
   padding-top: 90px;
@@ -89,9 +29,29 @@
 }
 
 .home-page-img h2 {
-  font-size: 4rem;
+  font-size: 3.5rem;
   font-weight: 600;
   letter-spacing: 0.1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.home-page-img .container .content h2 > span {
+  font-size: 3.5rem;
+  font-weight: 200;
+  letter-spacing: 0.1rem;
+  border-right: 3px solid #fff;
+  animation: changeColor 12s infinite alternate-reverse;
+  color: #32d112;
+  text-shadow: 0 0 10px #32d112;
+}
+
+@keyframes changeColor {
+  to {
+    filter: hue-rotate(360deg);
+  }
 }
 
 .home-page-img span {
@@ -178,6 +138,11 @@
   box-shadow: 0 0.1rem 0.6rem rgba(255, 255, 255, 0.2);
   color: #fff;
   text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.home-page-img .offer-box:hover {
+  transform: scale(1.05);
 }
 
 .home-page-img .offer-box p {
@@ -290,4 +255,20 @@
 .home-page-img .col-end .img-container .bt-9:hover ~ img {
   transform: rotateX(-15deg) rotateY(15deg) rotateZ(0deg);
   box-shadow: -2px -2px #18181888;
+}
+
+.home-page .about-us-container .row-start {
+  width: 100%;
+}
+
+.home-page .row-start .col-start {
+  display: flex;
+  justify-content: space-between;
+  gap: 2.6rem;
+}
+
+.home-page .row-start .col-start > div > span {
+  color: orange;
+  border-bottom: 2px solid orange;
+  font-size: 24px;
 }
