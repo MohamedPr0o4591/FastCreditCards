@@ -62,6 +62,8 @@ function HomePage() {
   const navi = useNavigate();
 
   useEffect(() => {
+    document.title = "Home | FastCreditCards";
+
     // تحقق من حالة المستخدم عند تحميل الصفحة
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
@@ -124,10 +126,12 @@ function HomePage() {
           <Container className="container">
             <Row className="h-100">
               <div className="content">
-                <h2 contentEditable="true">
-                  Earn rewards simply by: <span>{subText}</span>
+                <h2>
+                  Earn rewards simply by <span>{subText}</span>
                 </h2>
-                <span>Your interests are our interests</span>
+                <div>
+                  <span>Your interests are our interests</span>
+                </div>
               </div>
               <Col sm={12} lg={6} className=" col-start">
                 <div>

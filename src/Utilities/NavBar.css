@@ -26,7 +26,7 @@
   position: relative;
   padding: 0;
   width: 135px;
-  height: 47px;
+  height: 50px;
   transition: all 0.3s ease-in-out;
   cursor: pointer;
 }
@@ -113,12 +113,12 @@
   position: absolute;
   padding: 0;
   width: 135px;
-  height: 47px;
+  height: 50px;
   background: transparent;
   font-size: 17px;
   font-weight: 900;
   border: 3px solid #033977;
-  border-radius: 12px;
+  border-radius: 0 12px 12px 0;
   transition: all 0.3s ease-in-out;
 }
 
@@ -129,7 +129,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   width: 135px;
-  height: 47px;
+  height: 50px;
   background-color: #033977;
   border-radius: 12px;
   transition: all 0.3s ease-in-out;
@@ -140,14 +140,14 @@
   content: "Register";
   position: absolute;
   width: 135px;
-  height: 47px;
+  height: 50px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: transparent;
   font-size: 17px;
   font-weight: 900;
-  line-height: 47px;
+  line-height: 50px;
   color: #fff;
   border: none;
   border-radius: 12px;

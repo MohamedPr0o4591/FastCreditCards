@@ -60,30 +60,7 @@ function NavBar() {
 
             <Box flex={1} />
 
-            <Stack direction={"row"} gap={2}>
-              {/*               
-              <Box
-                className={`register_btn ${
-                  location.pathname.includes("/register") ? "d-none" : "d-block"
-                }`}
-                onClick={(_) => navigate("/register/full_name")}
-              >
-                <span>Register</span>
-
-                <div className="register_btn_hvr" />
-              </Box>
-              <Button
-                variant="outlined"
-                color="success"
-                onClick={(_) => navigate("/login")}
-                className={`register_btn ${
-                  location.pathname.includes("/login") ? "d-none" : "d-block"
-                }`}
-              >
-                Login
-              </Button>
-              */}
-
+            <Stack direction={"row"} gap={10 + "px"}>
               <button
                 onClick={(_) => navigate("/login")}
                 className={`login-btn ${

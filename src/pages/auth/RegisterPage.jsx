@@ -65,6 +65,7 @@ function RegisterPage() {
               opacity: 0.6,
               letterSpacing: 0.1 + "rem",
             }}
+            contentEditable
           >
             frequently asked questions have been answered
           </span>
