@@ -2,7 +2,7 @@ import { Box, Stack } from "@mui/material";
 import React from "react";
 import { Container } from "react-bootstrap";
 import "./HistoryPage.css";
-import { auth, db } from "../../../config/firebase";
+// import { auth, db } from "../../../config/firebase";
 
 function HistoryPage() {
   const [currentlyTime, setCurrentlyTime] = React.useState("");
@@ -15,32 +15,32 @@ function HistoryPage() {
     return () => clearInterval(intervalId);
   }, []);
 
-  React.useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (user) {
-        const userId = user.uid;
-        const userHistoryRef = db
-          .collection("users")
-          .doc(userId)
-          .collection("history");
+  // React.useEffect(() => {
+  //   const unsubscribe = auth.onAuthStateChanged((user) => {
+  //     if (user) {
+  //       const userId = user.uid;
+  //       const userHistoryRef = db
+  //         .collection("users")
+  //         .doc(userId)
+  //         .collection("history");
 
-        // الاستماع إلى تغييرات مجموعة البيانات وتحديث الحالة
-        const unsubscribeHistory = userHistoryRef.onSnapshot((snapshot) => {
-          const data = [];
-          snapshot.forEach((doc) => {
-            // تحويل كل وثيقة إلى كائن JavaScript
-            data.push({ id: doc.id, ...doc.data() });
-          });
-          setHistoryData(data);
-        });
+  //       // الاستماع إلى تغييرات مجموعة البيانات وتحديث الحالة
+  //       const unsubscribeHistory = userHistoryRef.onSnapshot((snapshot) => {
+  //         const data = [];
+  //         snapshot.forEach((doc) => {
+  //           // تحويل كل وثيقة إلى كائن JavaScript
+  //           data.push({ id: doc.id, ...doc.data() });
+  //         });
+  //         setHistoryData(data);
+  //       });
 
-        // تنظيف الاشتراك عند تفريغ المكون أو إيقافه
-        return () => unsubscribeHistory();
-      }
-    });
+  //       // تنظيف الاشتراك عند تفريغ المكون أو إيقافه
+  //       return () => unsubscribeHistory();
+  //     }
+  //   });
 
-    return () => unsubscribe();
-  }, []);
+  //   return () => unsubscribe();
+  // }, []);
 
   return (
     <div className="history-page">

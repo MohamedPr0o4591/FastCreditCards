@@ -1,6 +1,6 @@
 import React from "react";
 import { Avatar, Box, Stack } from "@mui/material";
-import { auth, db } from "../../../config/firebase";
+// import { auth, db } from "../../../config/firebase";
 import currency from "../../../../public/icon.png";
 
 function Row2(props) {
@@ -8,27 +8,27 @@ function Row2(props) {
   const [points, setPoints] = React.useState(1921312);
   const [profits, setProfits] = React.useState(3000);
 
-  React.useEffect(() => {
-    const fetchProfileImage = async () => {
-      try {
-        const user = auth.currentUser;
-        if (user) {
-          // إذا كان هناك مستخدم قام بتسجيل الدخول
-          const userDoc = await db.collection("users").doc(user.uid).get();
-          const profileImageURL = userDoc.data()?.profileImg;
+  // React.useEffect(() => {
+  //   const fetchProfileImage = async () => {
+  //     try {
+  //       const user = auth.currentUser;
+  //       if (user) {
+  //         // إذا كان هناك مستخدم قام بتسجيل الدخول
+  //         const userDoc = await db.collection("users").doc(user.uid).get();
+  //         const profileImageURL = userDoc.data()?.profileImg;
 
-          // إذا كانت هناك صورة في الوثائق
-          if (profileImageURL) {
-            setImageUrl(profileImageURL);
-          }
-        }
-      } catch (error) {
-        console.error("Error fetching user data:", error.message);
-      }
-    };
+  //         // إذا كانت هناك صورة في الوثائق
+  //         if (profileImageURL) {
+  //           setImageUrl(profileImageURL);
+  //         }
+  //       }
+  //     } catch (error) {
+  //       console.error("Error fetching user data:", error.message);
+  //     }
+  //   };
 
-    fetchProfileImage();
-  }, []);
+  //   fetchProfileImage();
+  // }, []);
 
   return (
     <Box className="box">

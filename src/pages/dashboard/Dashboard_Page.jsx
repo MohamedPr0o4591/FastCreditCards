@@ -11,8 +11,6 @@ import {
   Dashboard,
   Diversity1,
   ImagesearchRoller,
-  KeyboardDoubleArrowDown,
-  KeyboardDoubleArrowUp,
   LocalOffer,
   Person,
   Summarize,
@@ -21,42 +19,65 @@ import {
 } from "@mui/icons-material";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { auth } from "../../config/firebase";
+import axios from "axios";
+import { decryptToken } from "../../Utilities/token/Token_Crypt";
+// import { auth } from "../../config/firebase";
 
 const Dashboard_Page = () => {
-  const navi = useNavigate();
-
+  const nav = useNavigate();
   const loc = useLocation();
 
   useEffect(() => {
     document.title = "Earns | FastCreditCards";
 
-    // @ts-ignore
-    !localStorage.user && navi("/login");
-  }, []);
-
-  useEffect(() => {
-    auth.onAuthStateChanged((user) => {
-      if (user) {
-        // يوجد مستخدم قام بتسجيل الدخول
-        if (user.disabled) {
-          console.log();
-          ("disabled");
+    async function checkAuth() {
+      if (localStorage.token || sessionStorage.token) {
+        try {
+          await axios.get(
+            `${import.meta.env.VITE_API_HOST}/auth/checkAuthExists.php`,
+            {
+              headers: {
+                Authorization: `Bearer ${decryptToken(
+                  localStorage.token || sessionStorage.token
+                )}`,
+              },
+            }
+          );
+        } catch (err) {
           localStorage.clear();
-          navi("/");
-          // هنا يمكنك اتخاذ أي إجراءات إضافية، مثل تحويل المستخدم إلى صفحة خروج أو تنبيه آخر
-        } else {
-          console.log();
-          ("active");
+          sessionStorage.clear();
+          nav("/login");
         }
       } else {
-        console.log();
-        ("not-active");
-        localStorage.clear();
-        navi("/");
+        nav("/login");
       }
-    });
+    }
+
+    checkAuth();
   }, []);
+
+  // useEffect(() => {
+  //   auth.onAuthStateChanged((user) => {
+  //     if (user) {
+  //       // يوجد مستخدم قام بتسجيل الدخول
+  //       if (user.disabled) {
+  //         console.log();
+  //         ("disabled");
+  //         localStorage.clear();
+  //         navi("/");
+  //         // هنا يمكنك اتخاذ أي إجراءات إضافية، مثل تحويل المستخدم إلى صفحة خروج أو تنبيه آخر
+  //       } else {
+  //         console.log();
+  //         ("active");
+  //       }
+  //     } else {
+  //       console.log();
+  //       ("not-active");
+  //       localStorage.clear();
+  //       navi("/");
+  //     }
+  //   });
+  // }, []);
 
   return (
     <div className="dashboard_page">

@@ -48,7 +48,7 @@ import {
   PaymentsRounded,
   Person3Rounded,
 } from "@mui/icons-material";
-import { auth } from "../../config/firebase";
+// import { auth } from "../../config/firebase";
 import ad1 from "../../../public/img2.png";
 import currency from "../../../public/icon.png";
 import logo from "../../../public/logo.png";
@@ -65,14 +65,14 @@ function HomePage() {
     document.title = "Home | FastCreditCards";
 
     // تحقق من حالة المستخدم عند تحميل الصفحة
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (user) {
-        // المستخدم مسجل، قم بتوجيهه إلى صفحة الداشبورد
-        navi("/dashboard");
-      }
-    });
+    // const unsubscribe = auth.onAuthStateChanged((user) => {
+    //   if (user) {
+    //     // المستخدم مسجل، قم بتوجيهه إلى صفحة الداشبورد
+    //     navi("/dashboard");
+    //   }
+    // });
 
-    return () => unsubscribe();
+    // return () => unsubscribe();
   }, [history]);
 
   const [totalUsers, setTotalUsers] = useState(6118291);

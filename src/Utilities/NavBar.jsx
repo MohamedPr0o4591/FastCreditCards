@@ -10,7 +10,7 @@ import {
   Person3,
   PowerSettingsNewRounded,
 } from "@mui/icons-material";
-import { auth } from "../config/firebase";
+// import { auth } from "../config/firebase";
 
 function NavBar() {
   const myDifRef = useRef();
@@ -36,11 +36,11 @@ function NavBar() {
     };
   }, []);
 
-  const handleLogOut = (_) => {
-    localStorage.clear();
-    location.reload();
-    auth.signOut();
-  };
+  // const handleLogOut = (_) => {
+  //   localStorage.clear();
+  //   location.reload();
+  //   auth.signOut();
+  // };
 
   const theme = useTheme();
 
@@ -138,7 +138,7 @@ function NavBar() {
               bgcolor: "#27344d",
               color: "#efef",
             }}
-            onClick={handleLogOut}
+            // onClick={handleLogOut}
           >
             <PowerSettingsNewRounded />
           </IconButton>

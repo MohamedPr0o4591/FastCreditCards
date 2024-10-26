@@ -1,25 +1,19 @@
 import { KeyboardDoubleArrowRightOutlined } from "@mui/icons-material";
 import { Box, Paper, Stack, useTheme } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router";
-import { db } from "../config/firebase";
+import { useNavigate } from "react-router";
+import axios from "axios";
 
 function FullName_details() {
   const [email, setEmail] = useState("");
   const [confirmEmail, setConfirmEmail] = useState("");
   const [fullName, setFullName] = useState("");
-
-  const handleChange = ({ target }) => {
-    setInput({
-      ...input,
-      [target.name]: target.value,
-    });
-  };
+  const [refName, setRefName] = useState("");
 
   const [active, setActive] = useState(false);
   const [emailErr, setEmailErr] = useState(false);
 
-  const navi = useNavigate();
+  const nav = useNavigate();
   var theme = useTheme();
 
   useEffect(() => {
@@ -31,39 +25,35 @@ function FullName_details() {
     e.preventDefault();
   };
 
-  const handleSubmit = async (_) => {
+  async function handleSubmit() {
     setActive(true);
     let flag;
 
     if (email === "" || confirmEmail !== email || fullName.length < 8) {
       flag = false;
-    } else {
-      try {
-        // استعلام للتحقق من وجود البريد في Firestore
-        const querySnapshot = await db
-          .collection("users")
-          .where("email", "==", localStorage.email)
-          .get();
-
-        // إذا كانت النتيجة فارغة، فإن البريد غير مسجل من قبل
-        if (querySnapshot.empty) {
-          flag = true;
-        } else {
-          // إذا كان البريد مسجل من قبل، يمكنك إجراء الإجراء المناسب هنا
-          setEmailErr(true);
-        }
-      } catch (error) {
-        console.error("Error checking email in Firestore:", error.message);
-        // يمكنك التعامل مع الخطأ حسب احتياجاتك
-      }
-    }
+    } else flag = true;
 
     if (flag) {
-      if (localStorage.referrer) {
-        navi(`/r/${localStorage.referrer}/more_details`);
-      } else navi("/register/more_details");
+      const formData = new FormData();
+      formData.append("u_email", localStorage.email);
+
+      try {
+        const res = await axios.post(
+          `${import.meta.env.VITE_API_HOST}/auth/checkEmailExists.php`,
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+
+        nav("/register/more_details");
+      } catch (err) {
+        setEmailErr(true);
+      }
     }
-  };
+  }
 
   const handleEmailChange = (e) => {
     const sanitizedInput = e.target.value.replace(
@@ -91,17 +81,6 @@ function FullName_details() {
           <label>
             <h3 style={{ letterSpacing: ".05rem" }}>Sign up</h3>
           </label>
-
-          <Box flexGrow={1} />
-
-          {localStorage.referrer ? (
-            <span>
-              Referrer:{" "}
-              <span style={{ color: theme.palette.info.light }}>
-                {localStorage.referrer}
-              </span>{" "}
-            </span>
-          ) : null}
         </Stack>
 
         {emailErr ? (
@@ -181,33 +160,49 @@ function FullName_details() {
             }}
           >
             {fullName.length < 8 && (
-              <ol className="m-0 p-0">
+              <li className="m-0 p-0">
                 <span className="fw-bold"> Full Name </span> Must be at least 8
                 characters
-              </ol>
+              </li>
             )}
 
             {email == "" && (
-              <ol className="m-0 p-0">
+              <li className="m-0 p-0">
                 <span className="fw-bold"> E-mail </span> Required
-              </ol>
+              </li>
             )}
 
             {confirmEmail != email && (
-              <ol className="m-0 p-0">
+              <li className="m-0 p-0">
                 <span className="fw-bold"> E-mail </span> Don't match
-              </ol>
+              </li>
             )}
           </ul>
         ) : null}
 
         <Stack direction={"row"} mt={2} p={2}>
+          <div className="input-box" style={{ flexGrow: 1 }}>
+            <input
+              type="text"
+              value={refName}
+              onChange={(e) => setRefName(e.target.value)}
+              required
+              name="fullName"
+              maxLength={20}
+            />
+
+            <span>Referral username (optional)</span>
+
+            <div className="underLine" />
+          </div>
           <Box flexGrow={1} />
 
-          <span className="next_pointer" onClick={handleSubmit}>
-            Next
-            <KeyboardDoubleArrowRightOutlined />
-          </span>
+          <div className="d-flex align-items-end">
+            <span className="next_pointer" onClick={handleSubmit}>
+              Next
+              <KeyboardDoubleArrowRightOutlined />
+            </span>
+          </div>
         </Stack>
       </form>
     </div>

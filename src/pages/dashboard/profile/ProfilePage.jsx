@@ -6,11 +6,9 @@ import {
   Button,
   FormControl,
   IconButton,
-  InputLabel,
   MenuItem,
   Paper,
   Select,
-  Typography,
 } from "@mui/material";
 import Modal from "@mui/material/Modal";
 import {
@@ -23,16 +21,14 @@ import {
   Person2,
   Person2Rounded,
   PublicRounded,
-  QuestionMarkRounded,
   TabletOutlined,
   WalletRounded,
 } from "@mui/icons-material";
-import { auth, db, storage } from "../../../config/firebase";
+// import { auth, db, storage } from "../../../config/firebase";
 import { Stack } from "@mui/system";
 import CountryFlag from "react-country-flag";
-import { useNavigate } from "react-router";
 import ItemPayment from "../../../components/pages/profile/ItemPayment";
-import { Bounce, ToastContainer, toast } from "react-toastify";
+import { Bounce, toast } from "react-toastify";
 import { data } from "./data";
 
 const style = {
@@ -50,51 +46,51 @@ const style = {
 };
 
 function ProfilePage() {
-  const handleUploadImg = async (e) => {
-    const file = e.target.files[0];
+  // const handleUploadImg = async (e) => {
+  //   const file = e.target.files[0];
 
-    // إعداد مسار الصورة في Firebase Storage
-    const storageRef = storage.ref(
-      `users/${auth.currentUser.uid}/profileImage`
-    );
+  //   // إعداد مسار الصورة في Firebase Storage
+  //   const storageRef = storage.ref(
+  //     `users/${auth.currentUser.uid}/profileImage`
+  //   );
 
-    // قم بتحميل الصورة إلى Firebase Storage
-    const snapshot = await storageRef.put(file);
+  //   // قم بتحميل الصورة إلى Firebase Storage
+  //   const snapshot = await storageRef.put(file);
 
-    // قم بالحصول على رابط الصورة من Firebase Storage
-    const imageURL = await snapshot.ref.getDownloadURL();
+  //   // قم بالحصول على رابط الصورة من Firebase Storage
+  //   const imageURL = await snapshot.ref.getDownloadURL();
 
-    // قم بتحديث مجموعة Firestore برابط الصورة
-    await db.collection("users").doc(auth.currentUser.uid).update({
-      profileImg: imageURL,
-    });
+  //   // قم بتحديث مجموعة Firestore برابط الصورة
+  //   await db.collection("users").doc(auth.currentUser.uid).update({
+  //     profileImg: imageURL,
+  //   });
 
-    // قم بتحديث حالة الصورة في الـ useState
-    setImageURL(imageURL);
-  };
+  //   // قم بتحديث حالة الصورة في الـ useState
+  //   setImageURL(imageURL);
+  // };
 
-  useEffect(() => {
-    // يتم تشغيل هذا الكود عندما يتم تحميل الصفحة
-    const fetchProfileImage = async () => {
-      try {
-        const user = auth.currentUser;
-        if (user) {
-          // إذا كان هناك مستخدم قام بتسجيل الدخول
-          const userDoc = await db.collection("users").doc(user.uid).get();
-          const profileImageURL = userDoc.data()?.profileImg;
+  // useEffect(() => {
+  //   // يتم تشغيل هذا الكود عندما يتم تحميل الصفحة
+  //   const fetchProfileImage = async () => {
+  //     try {
+  //       const user = auth.currentUser;
+  //       if (user) {
+  //         // إذا كان هناك مستخدم قام بتسجيل الدخول
+  //         const userDoc = await db.collection("users").doc(user.uid).get();
+  //         const profileImageURL = userDoc.data()?.profileImg;
 
-          // إذا كانت هناك صورة في الوثائق
-          if (profileImageURL) {
-            setImageURL(profileImageURL);
-          }
-        }
-      } catch (error) {
-        console.error("Error fetching user data:", error.message);
-      }
-    };
+  //         // إذا كانت هناك صورة في الوثائق
+  //         if (profileImageURL) {
+  //           setImageURL(profileImageURL);
+  //         }
+  //       }
+  //     } catch (error) {
+  //       console.error("Error fetching user data:", error.message);
+  //     }
+  //   };
 
-    fetchProfileImage();
-  }, []); // [] يضمن أن useEffect سيتم تشغيله مرة واحدة عند تحميل الصفحة
+  //   fetchProfileImage();
+  // }, []); // [] يضمن أن useEffect سيتم تشغيله مرة واحدة عند تحميل الصفحة
 
   const [imageURL, setImageURL] = useState(null);
   const [country, setCountry] = useState("");
@@ -115,90 +111,89 @@ function ProfilePage() {
     setNetwork(event.target.value);
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const querySnapshot = await db
-          .collection("users")
-          .doc(auth.currentUser.uid)
-          .collection("invitation")
-          .get();
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const querySnapshot = await db
+  //         .collection("users")
+  //         .doc(auth.currentUser.uid)
+  //         .collection("invitation")
+  //         .get();
 
-        querySnapshot.forEach((doc) => {
-          setReferredId(doc.data().referredId);
-        });
-      } catch (error) {
-        console.error("Error fetching invitation data:", error);
-      }
-    };
+  //       querySnapshot.forEach((doc) => {
+  //         setReferredId(doc.data().referredId);
+  //       });
+  //     } catch (error) {
+  //       console.error("Error fetching invitation data:", error);
+  //     }
+  //   };
 
-    fetchData();
-  }, []);
+  //   fetchData();
+  // }, []);
 
-  useEffect(() => {
-    return async () => {
-      try {
-        const userId = auth.currentUser.uid; // استخدم معرف المستخدم الحالي
-        const userRef = db.collection("users").doc(userId);
+  // useEffect(() => {
+  //   return async () => {
+  //     try {
+  //       const userId = auth.currentUser.uid; // استخدم معرف المستخدم الحالي
+  //       const userRef = db.collection("users").doc(userId);
 
-        const doc = await userRef.get();
+  //       const doc = await userRef.get();
 
-        if (doc.exists) {
-          const fetchedCountry = doc.data().country || "";
-          setCountry(fetchedCountry);
-        } else {
-          // المستند غير موجود، يمكنك اتخاذ إجراء مناسب هنا
-          console.log("Document does not exist!");
-        }
-      } catch (error) {
-        // يمكنك معالجة الخطأ هنا
-        console.error("Error fetching user data:", error.message);
-      }
-    };
-  }, []);
+  //       if (doc.exists) {
+  //         const fetchedCountry = doc.data().country || "";
+  //         setCountry(fetchedCountry);
+  //       } else {
+  //         // المستند غير موجود، يمكنك اتخاذ إجراء مناسب هنا
+  //         console.log("Document does not exist!");
+  //       }
+  //     } catch (error) {
+  //       // يمكنك معالجة الخطأ هنا
+  //       console.error("Error fetching user data:", error.message);
+  //     }
+  //   };
+  // }, []);
 
-  const handleSave = (_) => {
-    let flag;
-    if (addressValue !== "") {
-      flag = true;
-    } else {
-      flag = false;
-      toast.error("Please enter your details correctly!!", {
-        position: "top-right",
-        autoClose: 1500,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-        transition: Bounce,
-      });
-    }
-    if (flag) {
-      db.collection("users").doc(auth.currentUser.uid).update({
-        paymentProcessor,
-        network,
-        address: addressValue,
-      });
+  // const handleSave = (_) => {
+  //   let flag;
+  //   if (addressValue !== "") {
+  //     flag = true;
+  //   } else {
+  //     flag = false;
+  //     toast.error("Please enter your details correctly!!", {
+  //       position: "top-right",
+  //       autoClose: 1500,
+  //       hideProgressBar: false,
+  //       closeOnClick: true,
+  //       pauseOnHover: true,
+  //       draggable: true,
+  //       progress: undefined,
+  //       theme: "dark",
+  //       transition: Bounce,
+  //     });
+  //   }
+  //   if (flag) {
+  //     db.collection("users").doc(auth.currentUser.uid).update({
+  //       paymentProcessor,
+  //       network,
+  //       address: addressValue,
+  //     });
 
-      toast.success("The change was made successfully", {
-        position: "top-right",
-        autoClose: 1500,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-        transition: Bounce,
-      });
-    }
-  };
+  //     toast.success("The change was made successfully", {
+  //       position: "top-right",
+  //       autoClose: 1500,
+  //       hideProgressBar: false,
+  //       closeOnClick: true,
+  //       pauseOnHover: true,
+  //       draggable: true,
+  //       progress: undefined,
+  //       theme: "dark",
+  //       transition: Bounce,
+  //     });
+  //   }
+  // };
 
   return (
     <div className="profile-page">
-      <ToastContainer />
       <Paper className="p-4  container box">
         <Box className="w-100 d-flex justify-content-center ">
           <Box className="img-container">
@@ -211,7 +206,7 @@ function ProfilePage() {
               type="file"
               accept="image/*"
               id="upload"
-              onChange={handleUploadImg}
+              // onChange={handleUploadImg}
               className="d-none"
             />
             <label htmlFor="upload">
@@ -530,7 +525,7 @@ function ProfilePage() {
                       color: "#efef",
                       px: 5,
                     }}
-                    onClick={handleSave}
+                    // onClick={handleSave}
                   >
                     Save
                   </Button>

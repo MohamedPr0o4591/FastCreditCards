@@ -1,8 +1,8 @@
 import { KeyboardDoubleArrowRightOutlined } from "@mui/icons-material";
 import { Box, Paper, Stack, useTheme } from "@mui/material";
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import { db } from "../config/firebase";
 
 function Privacy_details() {
   const [userName, setUserName] = useState("");
@@ -10,7 +10,7 @@ function Privacy_details() {
   const [active, setActive] = useState(false);
   const [err, setErr] = useState(false);
 
-  const navi = useNavigate();
+  const nav = useNavigate();
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
@@ -25,19 +25,25 @@ function Privacy_details() {
     setErr(false);
   };
 
-  const checkUsernameAvailability = async (username) => {
+  async function checkUsernameAvailability(username) {
     try {
-      const querySnapshot = await db
-        .collection("users")
-        .where("username", "==", username)
-        .get();
+      const formData = new FormData();
+      formData.append("u_email", username);
+      const res = await axios.post(
+        `${import.meta.env.VITE_API_HOST}/auth/checkEmailExists.php`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
 
-      return querySnapshot.empty; // إذا كانت النتيجة فارغة، فإن اسم المستخدم متاح
-    } catch (error) {
-      console.error("Error checking username availability:", error.message);
-      return false; // يمكنك التعامل مع الخطأ حسب احتياجاتك
+      return true;
+    } catch (err) {
+      return false;
     }
-  };
+  }
 
   const handleSubmit = async () => {
     setActive(true);
@@ -50,14 +56,9 @@ function Privacy_details() {
     }
 
     if (flag) {
-      if (localStorage.referrer) {
-        navi(`/r/${localStorage.referrer}/show_details`);
-      } else {
-        navi("/register/show_details");
-      }
+      nav("/register/show_details");
       localStorage.userName = userName;
     } else {
-      // إذا كان اسم المستخدم غير متاح، قم بعرض رسالة تنبيه للمستخدم
       setErr(true);
     }
   };
@@ -73,17 +74,6 @@ function Privacy_details() {
           <label>
             <h3 style={{ letterSpacing: ".05rem" }}>Sign up</h3>
           </label>
-
-          <Box flexGrow={1} />
-
-          {localStorage.referrer ? (
-            <span>
-              Referrer:{" "}
-              <span style={{ color: theme.palette.info.light }}>
-                {localStorage.referrer}
-              </span>{" "}
-            </span>
-          ) : null}
         </Stack>
 
         {err && userName !== "" ? (

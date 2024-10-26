@@ -125,32 +125,15 @@
   pointer-events: none;
 }
 
-.auth-page .input-box .overlay {
-  position: absolute;
-  top: 50%;
-  right: 10px;
-  transform: translateY(-50%);
-  color: #000;
-  z-index: 1;
-  letter-spacing: 0.1rem;
-  transition: all 0.228s ease;
-  opacity: 0;
-}
-
-.auth-page .input-box input:focus ~ .overlay,
-.auth-page .input-box input:valid ~ .overlay {
-  opacity: 1;
-}
-
 .auth-page .input-box p {
   margin: 0;
   position: absolute;
   right: 20px;
   top: 50%;
   transform: translateY(-50%);
-  color: #000;
   opacity: 0;
   transition: all 0.228s;
+  color: #fff;
 }
 
 .auth-page .input-box input:focus ~ p,
@@ -169,6 +152,7 @@
   background: transparent;
   z-index: 1;
   transition: all 0.228s ease;
+  color: #fff;
 }
 
 .auth-page .input-box input:focus ~ .underLine,
@@ -191,8 +175,9 @@
   width: 100%;
   height: 2px;
   transition: all 0.228s ease;
-  border-radius: 10px 20px;
-  background: #efef;
+  border-radius: 10px 30px;
+  background: #2c2c5e;
+  box-shadow: 0 0.4rem 0.6rem rgba(0, 0, 0, 0.2);
 }
 
 .auth-page input[type="submit"] {
@@ -208,6 +193,35 @@
 
 .auth-page input[type="submit"]:hover {
   opacity: 0.6;
+}
+
+.auth .checkbox {
+  padding: 10px;
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.auth .checkbox + p {
+  letter-spacing: 0.1rem;
+  color: #e00;
+  font-size: 0.8rem;
+  margin-left: 0.3rem;
+}
+
+.auth .checkbox > input {
+  transform: scale(1.2);
+  accent-color: aqua;
+}
+
+.auth .checkbox label > a {
+  color: brown;
+  transition: color 0.3s ease;
+}
+
+.auth .checkbox input:valid + label > a {
+  color: aqua;
 }
 
 .auth-page .next_pointer {
@@ -261,4 +275,20 @@
   border-right: 2px solid #3498db;
   color: #3498db;
   /* margin: 0 2rem; */
+}
+
+/* forget password */
+.auth-page .forget-pass-form {
+  min-width: 320px;
+  flex-grow: 0.25;
+  padding: 20px 40px;
+  border-radius: 0.4rem;
+  box-shadow: 0 0.1rem 1.2rem rebeccapurple;
+  background: transparent;
+}
+
+.auth .disabled,
+.auth-page .disabled {
+  pointer-events: none;
+  opacity: 0.3;
 }

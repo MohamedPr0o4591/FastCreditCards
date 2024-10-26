@@ -29,6 +29,7 @@
     "@nivo/pie": "^0.84.0",
     "axios": "^1.6.7",
     "bootstrap": "^5.3.2",
+    "crypto-js": "^4.2.0",
     "date-fns": "^3.6.0",
     "downloadjs": "^1.4.7",
     "egalink-toasty.js": "^1.5.5",

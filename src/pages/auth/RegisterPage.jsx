@@ -1,17 +1,9 @@
 import React, { useEffect, useReducer, useState } from "react";
 import "./Auth.css";
-import { Box, IconButton, Paper, Stack } from "@mui/material";
-import {
-  ChevronRightOutlined,
-  KeyboardArrowRightOutlined,
-  KeyboardDoubleArrowRightOutlined,
-  Man2Outlined,
-  Woman2Outlined,
-} from "@mui/icons-material";
 import { Col, Row } from "react-bootstrap";
 import Accordionation from "../../Utilities/Accordionation";
 import { Outlet, useNavigate, useParams } from "react-router";
-import { db } from "../../config/firebase";
+// import { db } from "../../config/firebase";
 import FlashCircle from "../../components/utilities/FlashCircle";
 
 function RegisterPage() {
@@ -19,17 +11,17 @@ function RegisterPage() {
   useEffect(() => {
     document.title = "Registration | FastCreditCards";
 
-    if (params && params.refId !== undefined) {
-      localStorage.referrerId = params.refId;
-      db.collection("users")
-        .doc(params.refId)
-        .get()
-        .then((doc) => {
-          if (doc.exists) {
-            localStorage.referrer = doc.data().username;
-          }
-        });
-    }
+    // if (params && params.refId !== undefined) {
+    //   localStorage.referrerId = params.refId;
+    //   db.collection("users")
+    //     .doc(params.refId)
+    //     .get()
+    //     .then((doc) => {
+    //       if (doc.exists) {
+    //         localStorage.referrer = doc.data().username;
+    //       }
+    //     });
+    // }
   }, []);
 
   return (
@@ -65,7 +57,6 @@ function RegisterPage() {
               opacity: 0.6,
               letterSpacing: 0.1 + "rem",
             }}
-            contentEditable
           >
             frequently asked questions have been answered
           </span>

@@ -9,7 +9,7 @@ import {
   differenceInSeconds,
   addDays,
 } from "date-fns";
-import { auth, db } from "../../../config/firebase";
+// import { auth, db } from "../../../config/firebase";
 import crown1 from "../../../assets/leader iconx/crown1.svg";
 import crown2 from "../../../assets/leader iconx/crown2.svg";
 import crown3 from "../../../assets/leader iconx/crown3.svg";

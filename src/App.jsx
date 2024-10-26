@@ -25,6 +25,7 @@ import ReferralsPage from "./pages/dashboard/referrals/ReferralsPage";
 import ProfilePage from "./pages/dashboard/profile/ProfilePage";
 import HistoryPage from "./pages/dashboard/history/HistoryPage";
 import LeaderboardPage from "./pages/dashboard/leaderBoard/LeaderboardPage";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -37,21 +38,16 @@ function App() {
       });
     }
 
-    function disableRightClick(e) {
-      e.preventDefault();
-    }
-
     window.addEventListener("mousemove", handleMouseMove);
-    window.addEventListener("contextmenu", disableRightClick);
 
     return (_) => {
       window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("contextmenu", disableRightClick);
     };
   }, []);
 
   return (
     <div className="main">
+      <ToastContainer />
       <div
         className="cursor"
         style={{
@@ -71,13 +67,7 @@ function App() {
           <Route path="show_details" element={<Show_details />} />
           <Route path="confirm_details" element={<Confirm_details />} />
         </Route>
-        <Route path="/r/:refId" element={<RegisterPage />}>
-          <Route path="full_name" element={<FullName_details />} />
-          <Route path="more_details" element={<More_details />} />
-          <Route path="privacy_details" element={<Privacy_details />} />
-          <Route path="show_details" element={<Show_details />} />
-          <Route path="confirm_details" element={<Confirm_details />} />
-        </Route>
+
         <Route path="/login" element={<LoginPage />} />
         <Route path="/login/forget_password" element={<Forget_Pass />} />
         <Route path="/privacy" element={<PrivacyPolicy />} />
