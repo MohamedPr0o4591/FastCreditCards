@@ -2,9 +2,15 @@ import { AttachMoney } from "@mui/icons-material";
 import { Box, Button, Paper, Stack } from "@mui/material";
 import React, { useState } from "react";
 
-function Main_Points({ textColor, bgColor, Card, Logo, Action, ActionColor }) {
-  const [value, setValue] = useState(0);
-
+function Main_Points({
+  textColor,
+  bgColor,
+  Card,
+  Logo,
+  Action,
+  ActionColor,
+  points,
+}) {
   return (
     <Paper
       className="main-points"
@@ -28,7 +34,7 @@ function Main_Points({ textColor, bgColor, Card, Logo, Action, ActionColor }) {
             <p className="fs-4" style={{ color: "red" }}>
               {" "}
               <span className="fw-bold" style={{ color: textColor }}>
-                {value.toLocaleString()}{" "}
+                {points > 999 ? points.toLocaleString() : points}{" "}
               </span>{" "}
               Satoshi{" "}
             </p>

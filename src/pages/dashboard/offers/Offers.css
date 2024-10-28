@@ -67,6 +67,13 @@
   transition: all 0.228s ease;
 }
 
+.offers_page .list_offers li:hover {
+  background: #05285759;
+  color: #efef;
+  animation: hue-rotate 10s linear infinite;
+  box-shadow: 0 0.1rem 0.6rem rgba(0, 0, 0, 0.4);
+}
+
 .offers_page .list_offers li:hover p {
   display: none;
 }
@@ -114,12 +121,12 @@
   margin-right: 1.5rem;
 }
 
-.offers_page .container-buttons button {
+.container-buttons button {
   background: #275b6e;
   color: #efef;
   transition: all 0.3s;
 }
 
-.offers_page .container-buttons button:active {
+.container-buttons button:active {
   transform: scale(0.95);
 }

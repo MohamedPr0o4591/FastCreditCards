@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import "./Dashboard_Page.css";
 import {
   Accordion,
@@ -19,65 +19,37 @@ import {
 } from "@mui/icons-material";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import axios from "axios";
-import { decryptToken } from "../../Utilities/token/Token_Crypt";
-// import { auth } from "../../config/firebase";
+import { useDispatch, useSelector } from "react-redux";
+import { checkAuth } from "./../../redux/actions/allActions";
 
 const Dashboard_Page = () => {
   const nav = useNavigate();
   const loc = useLocation();
 
+  const isAuth = useSelector((state) => state.CHECK_AUTH.data);
+  const dispatch = useDispatch();
+
   useEffect(() => {
     document.title = "Earns | FastCreditCards";
 
-    async function checkAuth() {
+    async function checkAuthentication() {
       if (localStorage.token || sessionStorage.token) {
-        try {
-          await axios.get(
-            `${import.meta.env.VITE_API_HOST}/auth/checkAuthExists.php`,
-            {
-              headers: {
-                Authorization: `Bearer ${decryptToken(
-                  localStorage.token || sessionStorage.token
-                )}`,
-              },
-            }
-          );
-        } catch (err) {
-          localStorage.clear();
-          sessionStorage.clear();
-          nav("/login");
-        }
+        dispatch(checkAuth(localStorage.token || sessionStorage.token));
       } else {
         nav("/login");
       }
     }
 
-    checkAuth();
+    checkAuthentication();
   }, []);
 
-  // useEffect(() => {
-  //   auth.onAuthStateChanged((user) => {
-  //     if (user) {
-  //       // يوجد مستخدم قام بتسجيل الدخول
-  //       if (user.disabled) {
-  //         console.log();
-  //         ("disabled");
-  //         localStorage.clear();
-  //         navi("/");
-  //         // هنا يمكنك اتخاذ أي إجراءات إضافية، مثل تحويل المستخدم إلى صفحة خروج أو تنبيه آخر
-  //       } else {
-  //         console.log();
-  //         ("active");
-  //       }
-  //     } else {
-  //       console.log();
-  //       ("not-active");
-  //       localStorage.clear();
-  //       navi("/");
-  //     }
-  //   });
-  // }, []);
+  useEffect(() => {
+    if (isAuth.message && isAuth.message !== "Authorized") {
+      nav("/login");
+      localStorage.clear();
+      sessionStorage.clear();
+    }
+  }, [isAuth]);
 
   return (
     <div className="dashboard_page">

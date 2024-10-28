@@ -1,11 +1,13 @@
 import { Box, Stack } from "@mui/material";
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { toast, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import emailjs from "@emailjs/browser";
 import { decryptToken, encryptToken } from "../Utilities/token/Token_Crypt";
+import { useDispatch, useSelector } from "react-redux";
+import { getIpData } from "../redux/actions/allActions";
 
 function Confirm_details() {
   const [password, setPassword] = useState("");
@@ -27,6 +29,12 @@ function Confirm_details() {
   const numbersRegex = /[0-9]/g;
 
   const nav = useNavigate();
+  const ipData = useSelector((state) => state.GET_IP_DATA.data);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getIpData());
+  }, []);
 
   async function handleFormSubmit(e) {
     e.preventDefault();
@@ -81,26 +89,7 @@ function Confirm_details() {
 
     if (isVerifyReq !== "") {
       if (verificationInput == isVerifyReq) {
-        const data = new URLSearchParams();
-        data.append("u_verify", "yes");
-        try {
-          await axios.patch(
-            `${import.meta.env.VITE_API_HOST}/auth/updateVerify.php`,
-            data,
-            {
-              headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
-                Authorization: `Bearer ${decryptToken(localStorage.tokenId)}`,
-              },
-            }
-          );
-          notify("success", "Verification Successful");
-          setTimeout(() => {
-            nav("/dashboard");
-          }, 2000);
-        } catch (err) {
-          notify("error", "Verification Failed");
-        }
+        checkUserVerification();
       } else {
         notify("error", "Verification Failed!!");
         setIsLoading(false);
@@ -117,69 +106,139 @@ function Confirm_details() {
           localStorage.month !== "" &&
           localStorage.year !== ""
         ) {
-          const formData = new FormData();
-          formData.append("u_email", localStorage.email);
-          formData.append("u_name", localStorage.userName);
-          formData.append("u_password", password);
-          formData.append("fullName", localStorage.full_name);
-          formData.append("gender", localStorage.gender);
-          formData.append(
-            "birth",
-            `${localStorage.year}-${
-              localStorage.month > 10
-                ? localStorage.month
-                : `0${localStorage.month}`
-            }-${localStorage.day}`
-          );
-          formData.append("country", localStorage.country);
-          try {
-            const res = await axios.post(
-              `${import.meta.env.VITE_API_HOST}/auth/registerUsr.php`,
-              formData,
-              {
-                headers: {
-                  "Content-Type": "multipart/form-data",
-                },
-              }
-            );
-
-            notify(
-              "success",
-              "Account has been successfully registered ,please check your email"
-            );
-
-            const verificationCode = Math.floor(
-              100000 + Math.random() * 900000
-            );
-            const templateParams = {
-              to_name: localStorage.full_name,
-              to_user: localStorage.email,
-              verification_code: verificationCode,
-            };
-
-            emailjs
-              .send(
-                import.meta.env.VITE_SERVICE_SUPER_ID,
-                import.meta.env.VITE_TEMPLATE_SUPER_ID,
-                templateParams,
-                import.meta.env.VITE_EMAILJS_SUPER_PUBLIC_KEY
-              )
-              .then(() => {
-                setIsVerifyReq(verificationCode);
-              });
-
-            localStorage.clear();
-
-            localStorage.tokenId = encryptToken(res.data.token);
-          } catch (err) {
-            notify("error", "Registration failed!!, please try again");
-          } finally {
-            setIsLoading(false);
-          }
+          createUser();
         } else {
           notify("error", "Please fill all the details");
         }
       }
+    }
+
+    setIsLoading(false);
+  }
+
+  async function checkUserVerification() {
+    const data = new URLSearchParams();
+    data.append("u_verify", "yes");
+    try {
+      await axios.patch(
+        `${
+          import.meta.env.VITE_API_HOST
+        }/fastCreditCards/auth/updateVerify.php`,
+        data,
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            Authorization: `Bearer ${decryptToken(localStorage.token)}`,
+          },
+        }
+      );
+
+      activeUser(ipData.ip);
+
+      notify("success", "Verification Successful");
+      setTimeout(() => {
+        nav("/dashboard");
+      }, 2000);
+    } catch (err) {
+      notify("error", "Verification Failed");
+    }
+  }
+
+  async function createUser() {
+    const formData = new FormData();
+    formData.append("u_email", localStorage.email);
+    formData.append("u_name", localStorage.userName);
+    formData.append("u_password", password);
+    formData.append("fullName", localStorage.full_name);
+    formData.append("gender", localStorage.gender);
+    formData.append(
+      "birth",
+      `${localStorage.year}-${
+        localStorage.month > 10 ? localStorage.month : `0${localStorage.month}`
+      }-${localStorage.day}`
+    );
+    formData.append("country", localStorage.country);
+    try {
+      const res = await axios.post(
+        `${import.meta.env.VITE_API_HOST}/fastCreditCards/auth/registerUsr.php`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      notify(
+        "success",
+        "Account has been successfully registered ,please check your email"
+      );
+
+      sendVerificationCode();
+
+      localStorage.clear();
+
+      localStorage.token = encryptToken(res.data.token);
+    } catch (err) {
+      notify("error", "Registration failed!!, please try again");
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  function sendVerificationCode() {
+    const verificationCode = Math.floor(100000 + Math.random() * 900000);
+    const templateParams = {
+      to_name: localStorage.full_name,
+      to_user: localStorage.email,
+      verification_code: verificationCode,
+    };
+
+    emailjs
+      .send(
+        import.meta.env.VITE_SERVICE_SUPER_ID,
+        import.meta.env.VITE_TEMPLATE_SUPER_ID,
+        templateParams,
+        import.meta.env.VITE_EMAILJS_SUPER_PUBLIC_KEY
+      )
+      .then(() => {
+        setIsVerifyReq(verificationCode);
+      });
+  }
+
+  async function activeUser(ip) {
+    try {
+      const res = await axios.get(
+        `/api/ip-check?key=${import.meta.env.VITE_API_KEY_IP_QUALITY}&ip=${ip}`
+      );
+
+      let statusResult;
+
+      if (res.data.fraud_score > 28) {
+        statusResult = "ban";
+      } else statusResult = "active";
+
+      const data = new URLSearchParams();
+      data.append("status", statusResult);
+
+      try {
+        await axios.post(
+          `${
+            import.meta.env.VITE_API_HOST
+          }/fastCreditCards/user/activeAccount.php`,
+          data,
+          {
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+              Authorization: `Bearer ${decryptToken(localStorage.token)}`,
+            },
+          }
+        );
+      } catch (error) {
+        console.error("error message: " + error);
+      }
+    } catch (err) {
+      console.error("error message: " + err);
     }
   }
 

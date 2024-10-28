@@ -42,7 +42,9 @@ function Forget_Pass() {
 
         try {
           await axios.post(
-            `${import.meta.env.VITE_API_HOST}/auth/forgetPass.php`,
+            `${
+              import.meta.env.VITE_API_HOST
+            }/fastCreditCards/auth/forgetPass.php`,
             data,
             {
               headers: {
@@ -71,7 +73,9 @@ function Forget_Pass() {
 
       try {
         const res = await axios.post(
-          `${import.meta.env.VITE_API_HOST}/auth/checkEmailExists.php`,
+          `${
+            import.meta.env.VITE_API_HOST
+          }/fastCreditCards/auth/checkEmailExists.php`,
           data,
           {
             headers: {

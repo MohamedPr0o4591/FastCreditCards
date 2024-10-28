@@ -1,23 +1,24 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import "./NavBar.css";
 import { Container } from "react-bootstrap";
-import { Box, Button, IconButton, Stack, useTheme } from "@mui/material";
+import { Box, IconButton, Stack } from "@mui/material";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
-import {
-  Logout,
-  Person,
-  Person3,
-  PowerSettingsNewRounded,
-} from "@mui/icons-material";
-// import { auth } from "../config/firebase";
+import { Person, Person3, PowerSettingsNewRounded } from "@mui/icons-material";
+import { useDispatch, useSelector } from "react-redux";
+import { checkAuth } from "../redux/actions/allActions";
 
 function NavBar() {
   const myDifRef = useRef();
-
+  const nav = useNavigate();
   const navigate = useNavigate();
 
+  const userData = useSelector((state) => state.CHECK_AUTH.data);
+  const dispatch = useDispatch();
+
   useEffect(() => {
+    dispatch(checkAuth(localStorage.token || sessionStorage.token));
+
     const handleScroll = (_) => {
       if (window.scrollY > 50) {
         myDifRef.current.style.background =
@@ -36,56 +37,17 @@ function NavBar() {
     };
   }, []);
 
-  // const handleLogOut = (_) => {
-  //   localStorage.clear();
-  //   location.reload();
-  //   auth.signOut();
-  // };
+  const handleLogOut = (_) => {
+    localStorage.clear();
+    sessionStorage.clear();
 
-  const theme = useTheme();
+    nav("/login");
+  };
 
   return (
     <div className="app-bar" ref={myDifRef}>
-      {!localStorage.user ? (
-        <Container>
-          <Stack direction={"row"} alignItems={"center"}>
-            <h3
-              style={{
-                cursor: "pointer",
-              }}
-              onClick={(_) => navigate("/")}
-            >
-              FastCreditCards
-            </h3>
-
-            <Box flex={1} />
-
-            <Stack direction={"row"} gap={10 + "px"}>
-              <button
-                onClick={(_) => navigate("/login")}
-                className={`login-btn ${
-                  location.pathname.includes("/login") && "d-none"
-                }`}
-              >
-                Have an account
-              </button>
-
-              <div
-                className={`container-btn 
-                   ${location.pathname.includes("/register") && "d-none"}
-                  `}
-                onClick={(_) => navigate("/register/full_name")}
-              >
-                {Array.from({ length: 6 }, (_, index) => (
-                  <i key={index} className={`hover bt-${index + 1}`} />
-                ))}
-
-                <button />
-              </div>
-            </Stack>
-          </Stack>
-        </Container>
-      ) : (
+      {localStorage.token ||
+      (sessionStorage.token && location.pathname.includes("/dashboard")) ? (
         <Stack
           direction={"row"}
           gap={2}
@@ -121,12 +83,12 @@ function NavBar() {
             >
               <p className="d-flex align-items-center justify-content-center gap-2 m-0">
                 {" "}
-                {localStorage.gender === "man" ? (
+                {userData?.user?.gender === "man" ? (
                   <Person sx={{ color: "aquamarine" }} />
                 ) : (
                   <Person3 sx={{ color: "aquamarine" }} />
                 )}{" "}
-                {localStorage.fullName}
+                {userData?.user?.full_name}
               </p>
             </Link>
           </Box>
@@ -138,11 +100,50 @@ function NavBar() {
               bgcolor: "#27344d",
               color: "#efef",
             }}
-            // onClick={handleLogOut}
+            onClick={handleLogOut}
           >
             <PowerSettingsNewRounded />
           </IconButton>
         </Stack>
+      ) : (
+        <Container>
+          <Stack direction={"row"} alignItems={"center"}>
+            <h3
+              style={{
+                cursor: "pointer",
+              }}
+              onClick={(_) => navigate("/")}
+            >
+              FastCreditCards
+            </h3>
+
+            <Box flex={1} />
+
+            <Stack direction={"row"} gap={10 + "px"}>
+              <button
+                onClick={(_) => navigate("/login")}
+                className={`login-btn ${
+                  location.pathname.includes("/login") && "d-none"
+                }`}
+              >
+                Have an account
+              </button>
+
+              <div
+                className={`container-btn 
+                 ${location.pathname.includes("/register") && "d-none"}
+                `}
+                onClick={(_) => navigate("/register/full_name")}
+              >
+                {Array.from({ length: 6 }, (_, index) => (
+                  <i key={index} className={`hover bt-${index + 1}`} />
+                ))}
+
+                <button />
+              </div>
+            </Stack>
+          </Stack>
+        </Container>
       )}
     </div>
   );

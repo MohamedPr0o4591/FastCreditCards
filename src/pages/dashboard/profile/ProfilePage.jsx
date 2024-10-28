@@ -30,6 +30,10 @@ import CountryFlag from "react-country-flag";
 import ItemPayment from "../../../components/pages/profile/ItemPayment";
 import { Bounce, toast } from "react-toastify";
 import { data } from "./data";
+import { useDispatch, useSelector } from "react-redux";
+import { checkAuth } from "../../../redux/actions/allActions";
+import axios from "axios";
+import { decryptToken } from "../../../Utilities/token/Token_Crypt";
 
 const style = {
   position: "absolute",
@@ -101,6 +105,44 @@ function ProfilePage() {
   const [referredId, setReferredId] = useState("");
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  const userData = useSelector((state) => state.CHECK_AUTH.data);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(checkAuth(localStorage.token || sessionStorage.token));
+  }, []);
+
+  useEffect(() => {
+    setImageURL(userData?.user?.more_info.image || null);
+  }, [userData]);
+
+  const handleUploadImg = async (e) => {
+    const file = e.target.files[0];
+
+    const formData = new FormData();
+    formData.append("u_img", file);
+
+    try {
+      await axios.post(
+        `${import.meta.env.VITE_API_HOST}/fastCreditCards/user/uploadImg.php`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${decryptToken(
+              localStorage.token || sessionStorage.token
+            )}`,
+          },
+        }
+      );
+
+      notify("success", "The change was made successfully");
+      dispatch(checkAuth(localStorage.token || sessionStorage.token));
+    } catch (err) {
+      notify("error", "Error ,The change was not made successfully");
+    }
+  };
 
   const handlePaymentProcessorChange = (event) => {
     setPaymentProcessor(event.target.value);
@@ -178,19 +220,22 @@ function ProfilePage() {
   //       address: addressValue,
   //     });
 
-  //     toast.success("The change was made successfully", {
-  //       position: "top-right",
-  //       autoClose: 1500,
-  //       hideProgressBar: false,
-  //       closeOnClick: true,
-  //       pauseOnHover: true,
-  //       draggable: true,
-  //       progress: undefined,
-  //       theme: "dark",
-  //       transition: Bounce,
-  //     });
   //   }
   // };
+
+  const notify = (status, msg) => {
+    toast[status](msg, {
+      position: "top-right",
+      autoClose: 1500,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+      transition: Bounce,
+    });
+  };
 
   return (
     <div className="profile-page">
@@ -199,14 +244,16 @@ function ProfilePage() {
           <Box className="img-container">
             <Avatar
               className="img"
-              alt={localStorage.fullName}
-              src={imageURL}
+              alt={userData?.user?.username}
+              src={`${
+                import.meta.env.VITE_API_HOST
+              }/fastCreditCards/upload/${imageURL}`}
             />
             <input
               type="file"
               accept="image/*"
               id="upload"
-              // onChange={handleUploadImg}
+              onChange={handleUploadImg}
               className="d-none"
             />
             <label htmlFor="upload">
@@ -226,7 +273,7 @@ function ProfilePage() {
               <Person2Rounded />
               <span>User Name:</span>
               <Box flexGrow={1} />
-              <span className="initial">{localStorage.userName}</span>
+              <span className="initial">{userData?.user?.username}</span>
             </Box>
 
             <Box className="inner-box">
@@ -234,7 +281,7 @@ function ProfilePage() {
               <span>E-mail:</span>
               <Box flexGrow={1} />
 
-              <span className="initial">{localStorage.email}</span>
+              <span className="initial">{userData?.user?.email}</span>
             </Box>
           </Box>
           <Box className="display-grid-2-col">
@@ -243,14 +290,14 @@ function ProfilePage() {
               <span>BirthDate:</span>
               <Box flexGrow={1} />
 
-              <span className="initial">{localStorage.bithDate}</span>
+              <span className="initial">{userData?.user?.birth}</span>
             </Box>
 
             <Box className="inner-box">
               <TabletOutlined />
               <span>Account Created:</span>
               <Box flexGrow={1} />
-              <span className="initial">{localStorage.created}</span>
+              <span className="initial">{userData?.user?.createAt}</span>
             </Box>
           </Box>
 
@@ -259,9 +306,7 @@ function ProfilePage() {
               <Person2 />
               <span>Gender:</span>
               <Box flexGrow={1} />
-              <span className="initial">
-                {localStorage.gender ? localStorage.gender.toUpperCase() : null}
-              </span>
+              <span className="initial">{userData?.user?.gender}</span>
             </Box>
 
             <Box className="inner-box">
@@ -269,7 +314,8 @@ function ProfilePage() {
               <span>Country:</span>
               <Box flexGrow={1} />
               <span className="initial">
-                <CountryFlag countryCode={country} svg />
+                {userData?.user?.country}{" "}
+                <CountryFlag countryCode={userData?.user?.country} svg />
               </span>
             </Box>
           </Box>
@@ -303,14 +349,6 @@ function ProfilePage() {
               />
             </IconButton>
           </Box>
-
-          {referredId ? (
-            <Box className="inner-box">
-              <span>Invited by: </span>
-              <Box flexGrow={1} />
-              <span className="initial">{referredId}</span>
-            </Box>
-          ) : null}
 
           <div className="addition">
             <Modal

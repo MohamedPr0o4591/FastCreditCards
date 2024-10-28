@@ -30,7 +30,9 @@ function Privacy_details() {
       const formData = new FormData();
       formData.append("u_email", username);
       const res = await axios.post(
-        `${import.meta.env.VITE_API_HOST}/auth/checkEmailExists.php`,
+        `${
+          import.meta.env.VITE_API_HOST
+        }/fastCreditCards/auth/checkEmailExists.php`,
         formData,
         {
           headers: {

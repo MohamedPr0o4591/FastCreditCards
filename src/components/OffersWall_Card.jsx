@@ -1,9 +1,9 @@
 import { Box, Rating, Stack } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 function OffersWall_Card(props) {
   return (
-    <li className={`${!props.deactivate ? "active" : "disabled"}`}>
+    <li className={`${!props.deactivate ? "active" : "disabled"} offer-wall`}>
       <Stack direction={"row"} gap={2} alignItems={"center"} pr={2}>
         <img src={props.bitlabs} />
         <p className="m-0">Bitlabs</p>

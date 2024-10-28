@@ -1,5 +1,5 @@
 import { Box, Button, Paper, Stack } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Main_Points from "../main_points/Main_Points";
 import {
   CurrencyBitcoin,
@@ -9,19 +9,23 @@ import {
   PersonSearch,
   PersonAdd,
 } from "@mui/icons-material";
+import { useDispatch, useSelector } from "react-redux";
+import { checkAuth } from "../../../redux/actions/allActions";
+import "./Main_Dashboard.css";
+import SlideOffers from "../../../components/Offers/SlideOffers";
 
 function Main_Dashboard() {
-  const [currectLevel, setCurrectLevel] = useState("Standard");
+  const [currentLevel, setCurrentLevel] = useState("Standard");
+  const userData = useSelector((state) => state.CHECK_AUTH.data);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(checkAuth(localStorage.token || sessionStorage.token));
+  }, []);
 
   return (
-    <div>
-      <Box
-        sx={{
-          display: "flex",
-          flexWrap: "wrap",
-          gap: 2,
-        }}
-      >
+    <div className="main-dashboard">
+      <Box className="flex-wrap">
         <Main_Points
           textColor="#db6c3f"
           bgColor="#2f4560"
@@ -29,6 +33,7 @@ function Main_Dashboard() {
           Logo={Savings}
           ActionColor="error"
           Action="Cash Out"
+          points={userData?.user?.points.earn}
         />
 
         <Main_Points
@@ -38,6 +43,7 @@ function Main_Dashboard() {
           Logo={ShoppingCart}
           Action="Deposit"
           ActionColor="info"
+          points={userData?.user?.points.deposit}
         />
 
         <Main_Points
@@ -47,15 +53,12 @@ function Main_Dashboard() {
           Logo={PersonAdd}
           Action="Get Referral Link"
           ActionColor="success"
+          points={userData?.user?.points.affiliate}
         />
       </Box>
 
-      <Box mt={4}>
-        <Stack direction={"row"} alignItems={"center"} gap={1}>
-          <h3 style={{ color: "aquamarine" }}> Current Level: </h3>
-
-          <span>(Level up to level 4)</span>
-        </Stack>
+      <Box>
+        <h4 className="current-level"> Current Level: </h4>
 
         <Paper
           sx={{
@@ -65,7 +68,7 @@ function Main_Dashboard() {
         >
           <Stack gap={1}>
             <p
-              className="m-0 fs-4 d-flex gap-2 align-items-center"
+              className="m-0 fs-5 flex-wrap align-items-center"
               style={{ color: "aquamarine" }}
             >
               {" "}
@@ -74,11 +77,11 @@ function Main_Dashboard() {
                 className="fs-5 fw-light"
                 style={{
                   color: `${
-                    currectLevel === "Standard"
+                    currentLevel === "Standard"
                       ? "#0e6"
-                      : currectLevel === "Junior Partner"
+                      : currentLevel === "Junior Partner"
                       ? "dodgerblue"
-                      : currectLevel === "Medium Partner"
+                      : currentLevel === "Medium Partner"
                       ? "mediumvioletred"
                       : "orangered"
                   }`,
@@ -86,12 +89,12 @@ function Main_Dashboard() {
                 }}
               >
                 {" "}
-                {currectLevel}
+                {currentLevel}
               </span>{" "}
             </p>
 
             <p
-              className="m-0 fs-4 d-flex gap-2 align-items-center"
+              className="m-0 fs-5 d-flex gap-2 align-items-center"
               style={{ color: "aquamarine" }}
             >
               {" "}
@@ -99,7 +102,7 @@ function Main_Dashboard() {
               <span className="fs-5 fw-light text-light">
                 Standard Since:{" "}
                 <span className="fs-6" style={{ color: "tomato" }}>
-                  {localStorage.created}
+                  {userData?.user?.createAt}
                 </span>{" "}
               </span>{" "}
             </p>
@@ -116,6 +119,16 @@ function Main_Dashboard() {
             </Stack>
           </Stack>
         </Paper>
+      </Box>
+      <p className="fs-5 text-light">Earn more:</p>
+
+      <Box>
+        <h4> Featured ADS: </h4>
+      </Box>
+
+      <Box>
+        <h4> Featured Offers: </h4>
+        <SlideOffers />
       </Box>
     </div>
   );

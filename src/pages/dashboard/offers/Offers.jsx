@@ -1,6 +1,5 @@
 import { Box, Card, Paper, Rating, Stack, Switch } from "@mui/material";
 import FeaturedCard from "../../../components/Offers/FeaturedCard";
-import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useEffect, useRef, useState } from "react";
@@ -15,132 +14,14 @@ import bitlabs from "../../../assets/icons/bitlabs.jpg";
 import OffersWall_Card from "../../../components/OffersWall_Card";
 // @ts-ignore
 import currency from "../../../../public/icon.png";
+import SlideOffers from "../../../components/Offers/SlideOffers";
 
 function Offers() {
-  const [autoPlay, setAutoPlay] = useState(true);
-
-  let sliderRef = useRef(null);
-
-  const settings = {
-    dots: false,
-
-    infinite: true,
-    slidesToShow: 7,
-    slidesToScroll: 2,
-    autoplay: true,
-    autoplaySpeed: 2000,
-    arrows: false,
-    responsive: [
-      {
-        breakpoint: 1380,
-        settings: {
-          slidesToShow: 5,
-          slidesToScroll: 1,
-        },
-      },
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 1,
-        },
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1,
-        },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        },
-      },
-    ],
-  };
-
-  const label = { inputProps: { "aria-label": "Color switch demo" } };
-
-  const handleClick = (_) => {
-    autoPlay ? setAutoPlay(false) : setAutoPlay(true);
-  };
-
-  useEffect(() => {
-    autoPlay ? play() : pause();
-  }, [autoPlay]);
-
-  const play = () => {
-    sliderRef.slickPlay();
-  };
-  const pause = () => {
-    sliderRef.slickPause();
-  };
-
   return (
     <div className="offers_page">
       <h3>Offers</h3>
 
-      <Paper
-        sx={{
-          p: 2,
-          bgcolor: "#2f4560",
-          color: "#efef",
-          mt: 2,
-        }}
-      >
-        <Stack direction={"row"} alignItems={"center"}>
-          <h3>Featured</h3>
-
-          <Box flexGrow={1} />
-
-          <Stack gap={1} direction={"row"} alignItems={"center"}>
-            <div className="container-buttons">
-              <button onClick={(_) => sliderRef.slickPrev()}>
-                <ArrowBack />
-              </button>
-
-              <button onClick={(_) => sliderRef.slickNext()}>
-                <ArrowForward />
-              </button>
-            </div>
-
-            <span>Auto play</span>
-
-            <Switch
-              {...label}
-              defaultChecked
-              color="info"
-              onClick={handleClick}
-            />
-          </Stack>
-        </Stack>
-
-        <Slider ref={(slider) => (sliderRef = slider)} {...settings}>
-          <FeaturedCard />
-          <FeaturedCard />
-          <FeaturedCard />
-          <FeaturedCard />
-          <FeaturedCard />
-          <FeaturedCard />
-
-          <FeaturedCard />
-          <FeaturedCard />
-          <FeaturedCard />
-          <FeaturedCard />
-          <FeaturedCard />
-          <FeaturedCard />
-
-          <FeaturedCard />
-          <FeaturedCard />
-          <FeaturedCard />
-          <FeaturedCard />
-          <FeaturedCard />
-          <FeaturedCard />
-        </Slider>
-      </Paper>
+      <SlideOffers title={"Featured"} auto={true} />
 
       <Paper
         sx={{
@@ -195,7 +76,7 @@ function Offers() {
         </Stack>
 
         <ul className="list_offers d-flex gap-2 flex-column">
-          <OffersWall_Card bitlabs={bitlabs} rate={4.50} />
+          <OffersWall_Card bitlabs={bitlabs} rate={4.5} />
           <OffersWall_Card bitlabs={bitlabs} deactivate rate={1.5} />
           <OffersWall_Card bitlabs={bitlabs} rate={3.25} />
         </ul>

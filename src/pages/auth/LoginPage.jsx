@@ -34,7 +34,9 @@ function LoginPage() {
 
       try {
         await axios.patch(
-          `${import.meta.env.VITE_API_HOST}/auth/updateVerify.php`,
+          `${
+            import.meta.env.VITE_API_HOST
+          }/fastCreditCards/auth/updateVerify.php`,
           data,
           {
             headers: {
@@ -61,7 +63,7 @@ function LoginPage() {
         formData.append("u_name", input.email);
         formData.append("u_pass", input.password);
         const res = await axios.post(
-          `${import.meta.env.VITE_API_HOST}/auth/loginUsr.php`,
+          `${import.meta.env.VITE_API_HOST}/fastCreditCards/auth/loginUsr.php`,
           formData,
           {
             headers: {

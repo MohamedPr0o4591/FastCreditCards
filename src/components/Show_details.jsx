@@ -1,47 +1,28 @@
-import {
-  DangerousRounded,
-  KeyboardDoubleArrowRightOutlined,
-} from "@mui/icons-material";
-import { Box, Paper, Stack, useTheme } from "@mui/material";
+import { KeyboardDoubleArrowRightOutlined } from "@mui/icons-material";
+import { Box, Stack, useTheme } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import axios from "axios";
 import CountryFlag from "react-country-flag";
+import { useDispatch, useSelector } from "react-redux";
+import { getIpData } from "../redux/actions/allActions";
 
 function Show_details() {
-  const navi = useNavigate();
+  const nav = useNavigate();
 
-  const [ipData, setIpData] = useState({});
-  const [riskColor, setRiskColor] = useState("");
+  const ipData = useSelector((state) => state.GET_IP_DATA.data);
+  const dispatch = useDispatch();
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
   };
 
   const handleSubmit = (_) => {
-    if (localStorage.referrer) {
-      navi(`/r/${localStorage.referrer}/confirm_details`);
-    } else navi("/register/confirm_details");
+    nav("/register/confirm_details");
   };
 
   useEffect(() => {
-    // استخدام ipinfo.io للحصول على معلومات الـ IP
-    axios
-      .get("https://ipinfo.io/json?token=fbf02ef6890d78")
-      .then((response) => {
-        setIpData(response.data);
-
-        // تحديد لون الريسك بناءً على النسبة
-        const riskScore = parseInt(response.data.riskScore || 0);
-        if (riskScore <= 27) {
-          setRiskColor("green");
-        } else if (riskScore <= 58) {
-          setRiskColor("orange");
-        } else {
-          setRiskColor("red");
-        }
-      })
-      .catch((error) => console.error("Error fetching IP data:", error));
+    dispatch(getIpData());
   }, []);
 
   const theme = useTheme();
@@ -151,14 +132,6 @@ function Show_details() {
                 </>
               ) : null}
             </p>
-            {localStorage.referrer ? (
-              <p>
-                Referrer ID:{" "}
-                <span style={{ color: theme.palette.info.main }}>
-                  {localStorage.referrer}
-                </span>
-              </p>
-            ) : null}
           </div>
         </Stack>
 

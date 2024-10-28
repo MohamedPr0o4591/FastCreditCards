@@ -1,0 +1,24 @@
+.main-dashboard {
+  position: relative;
+  gap: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-dashboard h4 {
+  color: aquamarine;
+}
+
+.main-dashboard h4.current-level::after {
+  content: " (Level up to level 4)";
+  font-size: 1rem;
+  color: #999;
+  vertical-align: middle;
+  margin-left: 0.5rem;
+}
+
+.main-dashboard .flex-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
