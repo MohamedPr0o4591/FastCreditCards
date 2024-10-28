@@ -4,98 +4,13 @@
   "builds": [
     {
       "src": "package.json",
-      "use": "@vercel/static-build"
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist"
+      }
     }
   ],
   "routes": [
-    {
-      "src": "/",
-      "dest": "/index.html"
-    },
-    {
-      "src": "/register",
-      "dest": "/index.html"
-    },
-    {
-      "src": "/register/full_name",
-      "dest": "/index.html"
-    },
-    {
-      "src": "/register/more_details",
-      "dest": "/index.html"
-    },
-    {
-      "src": "/register/privacy_details",
-      "dest": "/index.html"
-    },
-    {
-      "src": "/register/show_details",
-      "dest": "/index.html"
-    },
-    {
-      "src": "/register/confirm_details",
-      "dest": "/index.html"
-    },
-    {
-      "src": "/login",
-      "dest": "/index.html"
-    },
-    {
-      "src": "/login/forget_password",
-      "dest": "/index.html"
-    },
-    {
-      "src": "/privacy",
-      "dest": "/index.html"
-    },
-    {
-      "src": "/service",
-      "dest": "/index.html"
-    },
-    {
-      "src": "/cookies",
-      "dest": "/index.html"
-    },
-    {
-      "src": "/dashboard",
-      "dest": "/index.html"
-    },
-    {
-      "src": "/dashboard/offers",
-      "dest": "/index.html"
-    },
-    {
-      "src": "/dashboard/ads-surf",
-      "dest": "/index.html"
-    },
-    {
-      "src": "/dashboard/ads-active",
-      "dest": "/index.html"
-    },
-    {
-      "src": "/dashboard/ads-article",
-      "dest": "/index.html"
-    },
-    {
-      "src": "/dashboard/advertise",
-      "dest": "/index.html"
-    },
-    {
-      "src": "/dashboard/referrals",
-      "dest": "/index.html"
-    },
-    {
-      "src": "/dashboard/profile",
-      "dest": "/index.html"
-    },
-    {
-      "src": "/dashboard/history",
-      "dest": "/index.html"
-    },
-    {
-      "src": "/dashboard/affiliate-leaderboard",
-      "dest": "/index.html"
-    },
     {
       "src": "/(.*)",
       "dest": "/index.html"
