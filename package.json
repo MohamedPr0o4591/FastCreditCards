@@ -1,7 +1,10 @@
 {
   "name": "my-work-project",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "A project for managing tasks with React and Vite",
+  "author": "MohamedMokhtar",
+  "license": "MIT",
   "type": "module",
   "scripts": {
     "dev": "vite",
