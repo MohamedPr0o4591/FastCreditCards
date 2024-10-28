@@ -1,12 +1,10 @@
 {
-  "version": 2,
+  "version": 1,
+  "name": "my-work-project",
   "builds": [
     {
-      "src": "package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "dist"
-      }
+      "src": "src/main.jsx",
+      "use": "@vercel/static-build"
     }
   ],
   "routes": [
