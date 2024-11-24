@@ -45,7 +45,12 @@ function NavBar() {
   };
 
   return (
-    <div className="app-bar" ref={myDifRef}>
+    <div
+      className={`app-bar ${
+        location.pathname.includes("/dashboard/ads/") ? "d-none" : "d-block"
+      }`}
+      ref={myDifRef}
+    >
       {localStorage.token ||
       (sessionStorage.token && location.pathname.includes("/dashboard")) ? (
         <Stack

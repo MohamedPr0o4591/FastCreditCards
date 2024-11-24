@@ -29,7 +29,7 @@
 .dashboard_page .dashboard_menu {
   padding-top: 90px;
   width: 25vw;
-  height: 100vh;
+  min-height: 100vh;
   overflow: auto;
   scrollbar-width: none;
 }

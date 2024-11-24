@@ -48,7 +48,6 @@ import {
   PaymentsRounded,
   Person3Rounded,
 } from "@mui/icons-material";
-// import { auth } from "../../config/firebase";
 import ad1 from "../../../public/img2.png";
 import currency from "../../../public/icon.png";
 import logo from "../../../public/logo.png";
@@ -59,21 +58,15 @@ import warPathOffer from "../../assets/offers/warPath.jpg";
 import FlashCircle from "../../components/utilities/FlashCircle";
 
 function HomePage() {
-  const navi = useNavigate();
+  const nav = useNavigate();
 
   useEffect(() => {
     document.title = "Home | FastCreditCards";
 
-    // تحقق من حالة المستخدم عند تحميل الصفحة
-    // const unsubscribe = auth.onAuthStateChanged((user) => {
-    //   if (user) {
-    //     // المستخدم مسجل، قم بتوجيهه إلى صفحة الداشبورد
-    //     navi("/dashboard");
-    //   }
-    // });
-
-    // return () => unsubscribe();
-  }, [history]);
+    if (localStorage.token || sessionStorage.token) {
+      nav("/dashboard");
+    }
+  }, []);
 
   const [totalUsers, setTotalUsers] = useState(6118291);
   const [activeUsers, setActiveUsers] = useState(182901);
@@ -135,7 +128,7 @@ function HomePage() {
               </div>
               <Col sm={12} lg={6} className=" col-start">
                 <div>
-                  <button onClick={(_) => navi("/register/full_name")}>
+                  <button onClick={(_) => nav("/register/full_name")}>
                     Start earning now
                   </button>
 

@@ -6,6 +6,8 @@
   width: 100%;
   z-index: 3;
   transition: all 0.3s ease-in-out;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 .app-bar h3 {

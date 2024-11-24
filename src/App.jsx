@@ -26,6 +26,7 @@ import ProfilePage from "./pages/dashboard/profile/ProfilePage";
 import HistoryPage from "./pages/dashboard/history/HistoryPage";
 import LeaderboardPage from "./pages/dashboard/leaderBoard/LeaderboardPage";
 import { ToastContainer } from "react-toastify";
+import ReturnAds from "./components/ads/ReturnAds";
 
 function App() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -89,6 +90,9 @@ function App() {
             element={<LeaderboardPage />}
           />
         </Route>
+
+        <Route path="/dashboard/ads/:id" element={<ReturnAds />} />
+
         <Route path="*" element={<Dashboard_Page />} />
       </Routes>
 

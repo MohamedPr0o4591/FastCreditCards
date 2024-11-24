@@ -1,9 +1,8 @@
 import { AccessTime, Info } from "@mui/icons-material";
 import { Box, IconButton, Menu, Paper, Stack } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import MenuItem from "@mui/material/MenuItem";
-// import img from '../../public/l0kp8cnb.bmp';
 
 function Ads_Card(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -15,9 +14,9 @@ function Ads_Card(props) {
     setAnchorEl(null);
   };
 
-  const [href, setHref] = useState("https://google.com/");
-  const [points, setPoints] = useState(1020);
-  const [offerTime, setOfferTime] = useState(30);
+  const handleDataClick = (id) => {
+    props.handleGetAds(id);
+  };
 
   return (
     <Paper
@@ -30,15 +29,26 @@ function Ads_Card(props) {
         <Stack gap={2}>
           <Stack direction={"row"}>
             <a
-              href={href}
+              href={"/dashboard/ads/" + props.id}
               target="_blank"
               style={{
                 textDecoration: "none",
                 color: "rgb(175 211 255)",
               }}
+              onClick={(_) => handleDataClick(props.id)}
             >
-              WIN UP TO EARN 250$ daily..
+              {props.title}
             </a>
+
+            {props.countdown > 0 && (
+              <>
+                <Box flexGrow={1} />
+
+                <Box>
+                  <p>35</p>
+                </Box>
+              </>
+            )}
 
             <Box flexGrow={1} />
 
@@ -106,14 +116,16 @@ function Ads_Card(props) {
             <Box>
               <p className="m-0 d-flex align-items-center gap-2">
                 {" "}
-                <span className="text-danger fs-5">{points}</span> Satoshi{" "}
+                <span className="text-danger fs-5">
+                  {props.points}
+                </span> Satoshi{" "}
               </p>
             </Box>
 
             <Box>
               <p className="m-0 d-flex align-items-center gap-2">
                 {" "}
-                <AccessTime /> <span>{offerTime} s</span>
+                <AccessTime /> <span>{props.time} s</span>
               </p>
             </Box>
           </Stack>
