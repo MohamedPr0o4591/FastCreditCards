@@ -46,13 +46,12 @@ function NavBar() {
 
   return (
     <div
-      className={`app-bar ${
-        location.pathname.includes("/dashboard/ads/") ? "d-none" : "d-block"
-      }`}
+      className={`app-bar ${location.pathname.includes("/dashboard/ads/") ? "d-none" : "d-block"
+        }`}
       ref={myDifRef}
     >
       {localStorage.token ||
-      (sessionStorage.token && location.pathname.includes("/dashboard")) ? (
+        (sessionStorage.token && location.pathname.includes("/dashboard")) ? (
         <Stack
           direction={"row"}
           gap={2}
@@ -124,12 +123,11 @@ function NavBar() {
 
             <Box flex={1} />
 
-            <Stack direction={"row"} gap={10 + "px"}>
+            <Stack direction={"row"} gap={10 + "px"} className="box-btns-registeration">
               <button
                 onClick={(_) => navigate("/login")}
-                className={`login-btn ${
-                  location.pathname.includes("/login") && "d-none"
-                }`}
+                className={`login-btn ${location.pathname.includes("/login") && "d-none"
+                  }`}
               >
                 Have an account
               </button>

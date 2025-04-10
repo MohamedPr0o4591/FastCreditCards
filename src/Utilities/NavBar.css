@@ -68,42 +68,42 @@
   grid-area: bt-6;
 }
 
-.bt-1:hover ~ button,
-.bt-3:hover ~ button,
-.bt-4:hover ~ button,
-.bt-6:hover ~ button {
+.bt-1:hover~button,
+.bt-3:hover~button,
+.bt-4:hover~button,
+.bt-6:hover~button {
   box-shadow: -2px -2px #18181888;
 }
 
-.bt-1:hover ~ button::after,
-.bt-3:hover ~ button::after,
-.bt-4:hover ~ button::after,
-.bt-6:hover ~ button::after {
+.bt-1:hover~button::after,
+.bt-3:hover~button::after,
+.bt-4:hover~button::after,
+.bt-6:hover~button::after {
   animation: shake 0.5s ease-in-out 0.3s;
   text-shadow: -2px -2px #18181888;
 }
 
-.bt-1:hover ~ button {
+.bt-1:hover~button {
   transform: rotateX(15deg) rotateY(-15deg) rotateZ(0deg);
 }
 
-.bt-3:hover ~ button {
+.bt-3:hover~button {
   transform: rotateX(15deg) rotateY(15deg) rotateZ(0deg);
 }
 
-.bt-4:hover ~ button {
+.bt-4:hover~button {
   transform: rotateX(-15deg) rotateY(-15deg) rotateZ(0deg);
 }
 
-.bt-6:hover ~ button {
+.bt-6:hover~button {
   transform: rotateX(-15deg) rotateY(15deg) rotateZ(0deg);
 }
 
-.hover:hover ~ button::before {
+.hover:hover~button::before {
   background-color: transparent;
 }
 
-.hover:hover ~ button::after {
+.hover:hover~button::after {
   content: "Join Now";
   top: -50%;
   transform: translate(-50%, 0);
@@ -210,13 +210,11 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(
-    45deg,
-    transparent 3%,
-    #00e6f6 3%,
-    #00e6f6 5%,
-    #008ba1 5%
-  );
+  background: linear-gradient(45deg,
+      transparent 3%,
+      #00e6f6 3%,
+      #00e6f6 5%,
+      #008ba1 5%);
   text-shadow: -3px -3px 0px #f8f005, 3px 3px 0px #00e6f6;
   clip-path: var(--slice-0);
 }
@@ -290,4 +288,15 @@
 
 .app-bar a:hover {
   color: aquamarine;
+}
+
+@media screen and (max-width : 767px) {
+  .container-btn {
+    display: none !important;
+  }
+
+  .login-btn,
+  .login-btn::after {
+    font-size: 12px;
+  }
 }

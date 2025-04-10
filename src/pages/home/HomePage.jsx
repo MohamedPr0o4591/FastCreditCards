@@ -135,8 +135,8 @@ function HomePage() {
                   <Stack
                     direction={"row"}
                     alignItems={"center"}
-                    mt={2}
-                    gap={10}
+                    my={4}
+                    gap={2}
                   >
                     <Box className="desc-box">
                       <img
@@ -156,7 +156,7 @@ function HomePage() {
                   </Stack>
                 </div>
 
-                <Stack direction={"row"} alignItems={"center"} mt={2} gap={4}>
+                <Stack direction={"row"} alignItems={"center"} mt={2} gap={4} flexWrap={'wrap'}>
                   <OfferDetails
                     img={tiktokOffer}
                     title="Tiktok install"

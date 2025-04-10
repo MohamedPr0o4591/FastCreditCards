@@ -85,7 +85,7 @@
   opacity: 0;
 }
 
-.profile-page .inner-box .question-mark:hover ~ .overline {
+.profile-page .inner-box .question-mark:hover~.overline {
   opacity: 1;
 }
 

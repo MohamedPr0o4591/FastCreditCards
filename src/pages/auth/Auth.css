@@ -25,14 +25,12 @@
   left: -50%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    0deg,
-    transparent,
-    transparent,
-    #02c4de,
-    #02c4de,
-    #02c4de
-  );
+  background: linear-gradient(0deg,
+      transparent,
+      transparent,
+      #02c4de,
+      #02c4de,
+      #02c4de);
   animation: rotation 6s linear infinite;
   transform-origin: right bottom;
   z-index: 1;
@@ -45,14 +43,12 @@
   top: -50%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    0deg,
-    transparent,
-    transparent,
-    #02c4de,
-    #02c4de,
-    #02c4de
-  );
+  background: linear-gradient(0deg,
+      transparent,
+      transparent,
+      #02c4de,
+      #02c4de,
+      #02c4de);
   animation: rotation 6s linear infinite -3s;
   transform-origin: right bottom;
   z-index: 1;
@@ -64,14 +60,12 @@
   top: -50%;
   left: -50%;
   width: 100%;
-  background: linear-gradient(
-    0deg,
-    transparent,
-    transparent,
-    #6f6cff,
-    #6f6cff,
-    #6f6cff
-  );
+  background: linear-gradient(0deg,
+      transparent,
+      transparent,
+      #6f6cff,
+      #6f6cff,
+      #6f6cff);
   height: 100%;
   animation: rotation 6s linear infinite -1.5s;
   transform-origin: right bottom;
@@ -83,14 +77,12 @@
   top: -50%;
   left: -50%;
   width: 100%;
-  background: linear-gradient(
-    0deg,
-    transparent,
-    transparent,
-    #6f6cff,
-    #6f6cff,
-    #6f6cff
-  );
+  background: linear-gradient(0deg,
+      transparent,
+      transparent,
+      #6f6cff,
+      #6f6cff,
+      #6f6cff);
   height: 100%;
   animation: rotation 6s linear infinite -4.5s;
   transform-origin: right bottom;
@@ -136,8 +128,8 @@
   color: #fff;
 }
 
-.auth-page .input-box input:focus ~ p,
-.auth-page .input-box input:valid ~ p {
+.auth-page .input-box input:focus~p,
+.auth-page .input-box input:valid~p {
   opacity: 1;
 }
 
@@ -155,13 +147,13 @@
   color: #fff;
 }
 
-.auth-page .input-box input:focus ~ .underLine,
-.auth-page .input-box input:valid ~ .underLine {
+.auth-page .input-box input:focus~.underLine,
+.auth-page .input-box input:valid~.underLine {
   height: 100%;
 }
 
-.auth-page .input-box input:focus ~ span,
-.auth-page .input-box input:valid ~ span {
+.auth-page .input-box input:focus~span,
+.auth-page .input-box input:valid~span {
   transform: translateY(-35px);
   left: 0;
   letter-spacing: 0.1em;
@@ -203,24 +195,24 @@
   align-items: center;
 }
 
-.auth .checkbox + p {
+.auth .checkbox+p {
   letter-spacing: 0.1rem;
   color: #e00;
   font-size: 0.8rem;
   margin-left: 0.3rem;
 }
 
-.auth .checkbox > input {
+.auth .checkbox>input {
   transform: scale(1.2);
   accent-color: aqua;
 }
 
-.auth .checkbox label > a {
+.auth .checkbox label>a {
   color: brown;
   transition: color 0.3s ease;
 }
 
-.auth .checkbox input:valid + label > a {
+.auth .checkbox input:valid+label>a {
   color: aqua;
 }
 
@@ -251,7 +243,7 @@
   color: #efef;
 }
 
-.auth-page .login-banner .text-box > span:nth-child(2) {
+.auth-page .login-banner .text-box>span:nth-child(2) {
   border-right: 3px solid #fff;
   animation: changeColor 12s infinite alternate-reverse;
   color: #32d112;
@@ -291,4 +283,20 @@
 .auth-page .disabled {
   pointer-events: none;
   opacity: 0.3;
+}
+
+/* screen mobile */
+@media screen and (max-width : 767px) {
+  .auth-page .auth form {
+    padding: 20px 25px;
+  }
+
+  .auth-page .login-banner .text-box {
+    font-size: 1.7rem;
+    margin: 2rem 0;
+  }
+
+  .auth-page .forget-pass-form {
+    padding: 10px 20px;
+  }
 }
