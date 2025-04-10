@@ -17,13 +17,13 @@ $user = "root";
 $pass = "";
 
 try {
-    $conn = new PDO("mysql:host=$host", $user, $pass);
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $con = new PDO("mysql:host=$host", $user, $pass);
+    $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    $conn->exec("CREATE DATABASE IF NOT EXISTS $dbname CHARACTER SET uft8mb4 COLLATE utf8mb4_unicode_ci");
+    $con->exec("CREATE DATABASE IF NOT EXISTS $dbname CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
 
-    $conn = new PDO("mysql:host=$host;dbname=$dbname", $user, $pass);
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $con = new PDO("mysql:host=$host;dbname=$dbname", $user, $pass);
+    $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     $sql = [];
 
@@ -36,7 +36,7 @@ try {
         `gender` VARCHAR(255) NOT NULL ,
         `birthDate` VARCHAR(255) NOT NULL ,
         `country` VARCHAR(255) NOT NULL ,
-        `verified` VARCHAR(255) NULL DEFAULT 'false',
+        `verified` VARCHAR(255) NULL DEFAULT 'false'
     ) ";
 
     $sql[] = "CREATE TABLE IF NOT EXISTS `points_user` (
@@ -46,28 +46,28 @@ try {
         `points_deposit` VARCHAR(255) NULL DEFAULT '0',
         `points_affiliate` VARCHAR(255) NULL DEFAULT '0',
         FOREIGN KEY (`points_user`) REFERENCES `users` (`token`) ON DELETE CASCADE ON UPDATE CASCADE
-    )" ;
+    )";
 
     $sql[] = "CREATE TABLE IF NOT EXISTS `more_user_info` (
         `id` INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
         `user_token` VARCHAR(255)  NULL,
         FOREIGN KEY (`user_token`) REFERENCES `users` (`token`) ON DELETE CASCADE ON UPDATE CASCADE
-    )" ;
+    )";
 
     $sql[] = "CREATE TABLE IF NOT EXISTS `inviteuser` (
         `id` INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
         `i_user` VARCHAR(255)  NULL,
         `i_userInvited` VARCHAR(255)  NULL,
         FOREIGN KEY (`i_user`) REFERENCES `users` (`token`) ON DELETE CASCADE ON UPDATE CASCADE
-    )" ;
+    )";
 
     if (!empty($sql)) {
         foreach ($sql as $query) {
-            $conn->exec($query);
+            $con->exec($query);
         }
     }
 
-    include("../actions.php");
+    include('../actions.php');
 } catch (PDOException $e) {
     echo "" . $e->getMessage();
 }
