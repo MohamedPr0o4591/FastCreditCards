@@ -11,22 +11,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     exit();
 }
 
-// $dns = "mysql:host=localhost;dbname=fastcreditcards_db";
-// $user = 'root';
-// $pass = '';
-// $option = array(
-//     PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES UTF8"
-// );
-
-// try {
-//     $con = new PDO($dns, $user, $pass, $option);
-//     $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-//     include "actions.php";
-// } catch (PDOException $e) {
-//     echo $e->getMessage();
-// }
-
 $host = "localhost";
 $dbname = "fastcreditcards_db";
 $user = "root";
@@ -52,7 +36,7 @@ try {
         `gender` VARCHAR(255) NOT NULL ,
         `birthDate` VARCHAR(255) NOT NULL ,
         `country` VARCHAR(255) NOT NULL ,
-        `verified` VARCHAR(255) NULL,
+        `verified` VARCHAR(255) NULL DEFAULT 'false',
     ) ";
 
     $sql[] = "CREATE TABLE IF NOT EXISTS `points_user` (
